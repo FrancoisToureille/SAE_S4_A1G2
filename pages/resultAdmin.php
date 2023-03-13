@@ -1,3 +1,18 @@
+<?php
+function mauvaisOuBon($booleen) {
+    for($i = 0; $i<7; $i=$i+2) {
+        if($booleen[$i]==1) {
+            echo "bon ";
+        }
+        elseif($booleen[$i]==0){
+            echo "mauvais ";
+        }
+    }
+}
+
+?>
+
+
 <?php 
 /*fonction démarrant la page de gestion de l'administrateur*/
 function resultatAdmin() { ?>
@@ -28,92 +43,106 @@ function resultatAdmin() { ?>
 
                 <div id = "choix">
 
-                    <button id="questionsGenerales" onclick="afficherListeQuestions('listeQuestionsGenerales')">Questions Generales</button>
-                    <div id="listeQuestionsGenerales" style="display:none">
-                        <?php
-                            donneListe("General","286642","ButInformatiqueBD");?>
+                    <div id = "explicationAdmin"  style="padding-bottom:30px">Si vous voulez modifier un ou plusieurs champs, remplissez uniquement les champs souhaités et
+                     validez la modification.
                     </div>
 
-                    <button id="questionsWeb" onclick="afficherListeQuestions('listeQuestionsWeb')">Questions Web</button>
-                    <div id="listeQuestionsWeb" style="display:none">
-                        <?php //afficheQuestionsTheme();
-                            donneListe("Web","286642","ButInformatiqueBD");?>
+                    <div style="display:flex; flex-direction:row; justify-content:space-between;padding-bottom: 30px;">
+                        <button id="questionsGenerales" onclick="afficherListeQuestions('listeQuestionsGenerales')">Questions Generales</button>
+
+                        <button id="questionsWeb" onclick="afficherListeQuestions('listeQuestionsWeb')">Questions Web</button>
+                        
+                        <button id="questionsBD" onclick="afficherListeQuestions('listeQuestionsBD')">Questions BD</button>
                     </div>
-                        <!--form id ="formInserer" action="inserer.php" method="POST">
-                        <input id="libelle" name="libelle" type="text" placeholder="libelle">
-                        <input id="theme" name="theme" type="text" placeholder="theme">
-                        <input id="difficulte" name="difficulte" type="text" placeholder="difficulte(1 ou 2)">
-                        <input id="indice" name="indice" type="text" placeholder="indice">
-                        <input id="explication" name="explication" type="text" placeholder="explication">
-                        <input id="reponse1" name="reponse1" type="text" placeholder="reponse 1">
-                        <input id="bonneRep1" name="bonneRep1" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse2" name="reponse2" type="text" placeholder="reponse 2">
-                        <input id="bonneRep2" name="bonneRep2" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse3" name="reponse3" type="text" placeholder="reponse 3">
-                        <input id="bonneRep3" name="bonneRep3" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse4" name="reponse4" type="text" placeholder="reponse 4">
-                        <input id="bonneRep4" name="bonneRep4" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <div class="valide_form">
-                            <input type="submit" name="action" value="valider"/>
-                        </div>
-                         </form -->
 
-                    <!--button id="supprimer" onclick="afficherSupprimer()">Supprimer?</button>
+                    <div style="display:flex; flex-direction:row; justify-content:space-between;">
 
-                    <button id="modifier" onclick="afficherModifier()">Modifier?</button>
+                        <button id="questionsReseaux" onclick="afficherListeQuestions('listeQuestionsReseaux')">Questions Reseaux</button>
 
-                    <button id="inserer" onclick="afficherInserer()">Insérer?</button-->
+                        <button id="questionsProgrammation" onclick="afficherListeQuestions('listeQuestionsProgrammation')">Questions Programmation</button>
+                        
+                        <button onclick="afficherInserer()">Insérer</bouton>             
+
+                    </div>
+
                 </div>
+                <form id ="formInserer" style="display:none" action="inserer.php" method="POST">  
+                  
+                    <input name="libelle" type="text"  placeholder="Libelle" placeholder="libelle">
+                    
+                    <select name="theme">
+                        <option>theme</option>
+                        <option value="General">Général</option>
+                        <option value="BD">BD</option>
+                        <option value="Programmation">Programmation</option>
+                        <option value="Reseaux">Réseaux</option>
+                        <option value="Web">Web</option>
+                        <option value="Systeme">Système</option>
+                    
+                    </select>
 
-                <!--form id ="formSupprimer" action="supprimer.php" method="POST">
-                        <input id="idQuestion" name="idQuestion" type="text" placeholder="IdQuestion">
-                <div class="valide_form">
-                        <input type="submit" name="action" value="valider"/>
-                </div>
+                    <select name="difficulte">
+                        <option>difficulté(1 ou 2)</option>
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                    </select>
+
+                    <input id="indice" name="indice" type="text" placeholder="indice">
+
+                    <input id="explication" name="explication" type="text" placeholder="explication">
+
+                    <input id="reponse1" name="reponse1" type="text" placeholder="réponse 1">
+                    <select name="bonneRep1">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+
+                    <input id="reponse2" name="reponse2" type="text" placeholder="réponse 2">
+                    <select name="bonneRep2">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+
+                    <input id="reponse3" name="reponse3" type="text" placeholder="réponse 3">
+                    <select name="bonneRep3">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+
+                    <input id="reponse4" name="reponse4" type="text" placeholder="réponse 4">
+                    <select name="bonneRep4">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+
+                    <input type="submit" name="action" value="Insérer"/>
                 </form>
-
-                <form id ="formInserer" action="inserer.php" method="POST">
-                        <input id="libelle" name="libelle" type="text" placeholder="libelle">
-                        <input id="theme" name="theme" type="text" placeholder="theme">
-                        <input id="difficulte" name="difficulte" type="text" placeholder="difficulte(1 ou 2)">
-                        <input id="indice" name="indice" type="text" placeholder="indice">
-                        <input id="explication" name="explication" type="text" placeholder="explication">
-                        <input id="reponse1" name="reponse1" type="text" placeholder="reponse 1">
-                        <input id="bonneRep1" name="bonneRep1" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse2" name="reponse2" type="text" placeholder="reponse 2">
-                        <input id="bonneRep2" name="bonneRep2" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse3" name="reponse3" type="text" placeholder="reponse 3">
-                        <input id="bonneRep3" name="bonneRep3" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse4" name="reponse4" type="text" placeholder="reponse 4">
-                        <input id="bonneRep4" name="bonneRep4" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                <div class="valide_form">
-                        <input type="submit" name="action" value="valider"/>
+             
+                <div id="listeQuestionsGenerales" style="display:none">
+                <?php donneListe("General","286642","ButInformatiqueBD");?>
                 </div>
-                </form>
-
-                <form id ="formModifier" action="modifier.php" method="POST">
-                        <input name="id" type="text" placeholder="id">
-                        <input name="libelle" type="text" placeholder="libelle">
-                        <input name="theme" type="text" placeholder="theme">
-                        <input name="difficulte" type="text" placeholder="difficulte(1 ou 2)">
-                        <input name="indice" type="text" placeholder="indice">
-                        <input name="explication" type="text" placeholder="explication">
-                        <input name="reponse1" type="text" placeholder="reponse 1">
-                        <input name="bonneRep1" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input name="reponse2" type="text" placeholder="reponse 2">
-                        <input name="bonneRep2" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input name="reponse3" type="text" placeholder="reponse 3">
-                        <input name="bonneRep3" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input name="reponse4" type="text" placeholder="reponse 4">
-                        <input name="bonneRep4" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                <div class="valide_form">
-                        <input type="submit" name="action" value="valider"/>
+                    
+                <div id="listeQuestionsWeb" style="display:none">
+                <?php donneListe("Web","286642","ButInformatiqueBD");?>
                 </div>
-                </form-->
 
-              
+                <div id="listeQuestionsBD" style="display:none">
+                <?php donneListe("BD","286642","ButInformatiqueBD");?>
+                </div>
+                
+                <div id="listeQuestionsReseaux" style="display:none">
+                <?php donneListe("Reseaux","286642","ButInformatiqueBD");?>
+                </div> 
+
+                <div id="listeQuestionsProgrammation" style="display:none">
+                <?php donneListe("Programmation","286642","ButInformatiqueBD");?>
+                </div>
+
             </div>
-            <div  id="toutesLesQuestions"><?php //afficheQuestions();  ?> </div>
         </div>
     </body>
 </html>
@@ -141,39 +170,6 @@ function startContact() {
 }
 ?>
 
-<?php
-/* fonction affichant toutes les questions */
-function afficheQuestions() {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net","286642","ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink , 'quizzbutinfoaix_bd')or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
-    $query = 'SELECT * FROM QUESTION';
-    $result = mysqli_query($dbLink, $query);
-    if (!$result)
-    {
-    echo 'Impossible d\'exécuter la requête ', $query, ' : ', mysqli_error($dbLink);
-    }
-    else
-    {
-        if (mysqli_num_rows($result) != 0)
-        {
-            while ($row = mysqli_fetch_assoc($result))
-            {  
-                ?>
-                <div class = "question"> 
-                    <?php echo $row['LIBELLE'];echo ' : '; ?>
-                    <div class = "id_question"> <?php echo $row['ID_QUESTION'];?> </div>
-                </div>
-                <?php
-            }
-        } 
-    } 
-}
-?>
-
-
-
-
 
 <?php
 
@@ -186,6 +182,19 @@ function boutonTheme($theme,$numeroQuestion){
         <button style="margin:20px;" onclick="afficheQuestionsTest('General',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
     <?php
     }
+
+    else if($theme == "BD") {?>
+        <button style="margin:20px;" onclick="afficheQuestionsTest('BD',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+    <?php
+    }
+    else if($theme == "Reseaux") {?>
+        <button style="margin:20px;" onclick="afficheQuestionsTest('Reseaux',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+    <?php
+    }
+    else if($theme == "Programmation") {?>
+        <button style="margin:20px;" onclick="afficheQuestionsTest('Programmation',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+    <?php
+    }
 }
 
 
@@ -195,7 +204,11 @@ function donneListe($THEME,$user,$pass){
  //on appelle le pdo
 
     // On ecris la requette avec les paramettres de la fonction
-    $stmt=$connexionBD->prepare("SELECT * FROM QUESTION WHERE THEME=?");
+    $stmt=$connexionBD->prepare("SELECT Q.ID_QUESTION, Q.LIBELLE , Q.DIFFICULTE, Q.INDICE, Q.EXPLICATION,
+     GROUP_CONCAT(R.LIBELLE) AS REPONSES,
+     GROUP_CONCAT(R.BONNE_REP) AS VALIDITES 
+     FROM QUESTION Q LEFT JOIN REPONSE R ON Q.ID_QUESTION = R.ID_QUESTION
+    WHERE THEME=? GROUP BY Q.ID_QUESTION");
 
     $stmt->execute([$THEME]); 
     $result = $stmt->fetchAll();
@@ -208,23 +221,49 @@ function donneListe($THEME,$user,$pass){
                 <form class ="formModifier" action="modifier.php" method="POST">
                     <input name="id" style="display:none" type="text" value =<?php echo $result[$i]['ID_QUESTION'];?>>
                     <input name="libelle" type="text"  placeholder="Libelle" placeholder="libelle">
-                    <input id="difficulte" name="difficulte" type="text" placeholder="difficulte(1 ou 2)">
+                    <select name="difficulte" placeholder="1 bon, 0 mauvais">
+                        <option>difficulté(1 ou 2)</option>
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                    </select>
                     <input id="indice" name="indice" type="text" placeholder="indice">
                     <input id="explication" name="explication" type="text" placeholder="explication">
-                    <input id="reponse1" name="reponse1" type="text" placeholder="reponse 1">
-                    <input id="bonneRep1" name="bonneRep1" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                    <input id="reponse2" name="reponse2" type="text" placeholder="reponse 2">
-                    <input id="bonneRep2" name="bonneRep2" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                    <input id="reponse3" name="reponse3" type="text" placeholder="reponse 3">
-                    <input id="bonneRep3" name="bonneRep3" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                    <input id="reponse4" name="reponse4" type="text" placeholder="reponse 4">
-                    <input id="bonneRep4" name="bonneRep4" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                    <input type="submit" name="action" value="valider"/>
+                    <input id="reponse1" name="reponse1" type="text" placeholder="réponse 1">
+                    <select name="bonneRep1" placeholder="1 bon, 0 mauvais">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+                    <input id="reponse2" name="reponse2" type="text" placeholder="réponse 2">
+                    <select name="bonneRep2" placeholder="1 bon, 0 mauvais">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+                    <input id="reponse3" name="reponse3" type="text" placeholder="réponse 3">
+                    <select name="bonneRep3" placeholder="1 bon, 0 mauvais">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+                    <input id="reponse4" name="reponse4" type="text" placeholder="réponse 4">
+                    <select name="bonneRep4" placeholder="1 bon, 0 mauvais">
+                        <option>mauvais ou bon</option>
+                        <option value=0>mauvais</option>
+                        <option value=1>bon</option>
+                    </select>
+                    <input type="submit" name="action" value="Modifier"/>
                 </form>
+
 
                 <div class = "libelleQuestion">
                     <h3>Question : </h3>
                     <?php echo $result[$i]['LIBELLE'];?>
+                </div>
+
+                <div class = "difficulteQuestion">
+                        <h3>Difficulté : </h3>
+                        <?php echo $result[$i]['DIFFICULTE'];?>                   
                 </div>
 
                 <div class = "indiceQuestion">
@@ -236,73 +275,21 @@ function donneListe($THEME,$user,$pass){
                     <h3>Explication : </h3>
                         <?php echo $result[$i]['EXPLICATION'];?> 
                 </div>
+
+                <div class = "reponses">
+                    <h3>Reponses : </h3>
+                        <?php echo $result[$i]['REPONSES'];?> 
+                </div>
+
+                <div class = "validites">
+                    <h3>Reponses Valides ou non : </h3>
+                        <?php echo mauvaisOuBon($result[$i]['VALIDITES']);?> 
+                </div>
             </div>
             <?php
     } 
 }
 
-
-
-/**fonction obsolete */
-function afficheQuestionsTheme() {
-
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net","286642","ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink , 'quizzbutinfoaix_bd')or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
-    $query = 'SELECT * FROM QUESTION WHERE THEME="General"';
-    $result = mysqli_query($dbLink, $query);
-    if (!$result)
-    {
-    echo 'Impossible d\'exécuter la requête ', $query, ' : ', mysqli_error($dbLink);
-    }
-    else
-    {
-        if (mysqli_num_rows($result) != 0)
-        {   $nb = 1;
-            while ($row = mysqli_fetch_assoc($result))
-            {   $numQuestion = "questionGeneral" . $nb;
-                ?>
-                 
-                <button style="margin:20px;" onclick="afficheQuestionsTest('General',<?php echo $nb;?>)"> question <?php echo $nb; ?></button>
-                <div class = "question" id=<?php echo $numQuestion;?> style="display:none">
-                    <form class ="formModifier" action="modifier.php" method="POST">
-                        <input name="id" style="display:none" type="text" value =<?php echo $row['ID_QUESTION'];?>>
-                        <input name="libelle" type="text"  placeholder="Libelle" placeholder="libelle">
-                        <input id="difficulte" name="difficulte" type="text" placeholder="difficulte(1 ou 2)">
-                        <input id="indice" name="indice" type="text" placeholder="indice">
-                        <input id="explication" name="explication" type="text" placeholder="explication">
-                        <input id="reponse1" name="reponse1" type="text" placeholder="reponse 1">
-                        <input id="bonneRep1" name="bonneRep1" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse2" name="reponse2" type="text" placeholder="reponse 2">
-                        <input id="bonneRep2" name="bonneRep2" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse3" name="reponse3" type="text" placeholder="reponse 3">
-                        <input id="bonneRep3" name="bonneRep3" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input id="reponse4" name="reponse4" type="text" placeholder="reponse 4">
-                        <input id="bonneRep4" name="bonneRep4" type="text" placeholder="Rep Bonne? (1 bon, 0 mauvais)">
-                        <input type="submit" name="action" value="valider"/>
-                    </form>
-
-                    <div class = "libelleQuestion">
-                        <h3>Question : </h3>
-                        <?php echo $row['LIBELLE'];?>
-                    </div>
-
-                    <div class = "indiceQuestion">
-                        <h3>Indice : </h3>
-                        <?php echo $row['INDICE'];?>
-                    </div>
-
-                    <div class = "explicationQuestion">
-                        <h3>Explication : </h3>
-                            <?php echo $row['EXPLICATION'];?> 
-                    </div>
-                </div>
-
-                <?php ++$nb;
-            }
-        } 
-    } 
-}
 ?>
 
 <?php 

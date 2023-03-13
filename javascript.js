@@ -1,3 +1,6 @@
+var listeTheme=["listeQuestionsWeb","listeQuestionsGenerales","listeQuestionsBD","listeQuestionsReseaux","listeQuestionsProgrammation"];
+
+
 /** fonction ouvrant l'overlay et affichant des paragraphes et titres selon le choix réalisé par l'utilisateur*/ 
 function setScreen(spe){
     /**Cache les vidéos tutorielles */
@@ -119,11 +122,11 @@ function afficherSupprimer() {
     document.getElementById("formModifier").style.display= "none";
 }
 /** fonction permettant à l'administrateur d'accèder au formulaire inserer*/
-function afficherInserer() {
+/*function afficherInserer() {
     document.getElementById("formSupprimer").style.display= "none";
     document.getElementById("formInserer").style.display= "initial";
     document.getElementById("formModifier").style.display= "none";
-}
+}*/
 function afficherModifier() {
     document.getElementById("formSupprimer").style.display= "none";
     document.getElementById("formInserer").style.display= "none";
@@ -131,7 +134,7 @@ function afficherModifier() {
 
 }
 function afficherListeQuestions(theme) {
-    var listeTheme=["listeQuestionsWeb","listeQuestionsGenerales"];
+    document.getElementById("formInserer").style.display = "none";
     for(let i = 0; i < listeTheme.length; ++i) {
         if(listeTheme[i]==theme) {
             if(document.getElementById(listeTheme[i]).style.display =="initial") {
@@ -149,12 +152,31 @@ function afficherListeQuestions(theme) {
 }
 
 function afficheQuestionsTest(theme,nb){
-
+    document.getElementById("formInserer").style.display = "none";
     var numeroQuestionCliquee = "question" + theme + parseInt(nb);
-    if( document.getElementById(numeroQuestionCliquee).style.display !="initial") {
-        document.getElementById(numeroQuestionCliquee).style.display ="initial";
+    if( document.getElementById(numeroQuestionCliquee).style.display != "initial") {
+        document.getElementById(numeroQuestionCliquee).style.display = "initial";
     }
     else {
-        document.getElementById(numeroQuestionCliquee).style.display ="none";
+        document.getElementById(numeroQuestionCliquee).style.display = "none";
     }
+}
+
+function ouvrirFormulaireInsertion(theme) {
+
+}
+
+/** fonction permettant à l'administrateur d'accèder au formulaire inserer*/
+function afficherInserer() {
+    /** On ferme les div des questions sélectionnées auparavant */
+    for(let i = 0; i < listeTheme.length; ++i) {
+        document.getElementById(listeTheme[i]).style.display = "none";
+    }
+    /** On enlève le formulaire d'insertion s'il était déjà affiché*/
+    if(document.getElementById("formInserer").style.display == "initial") {
+        document.getElementById("formInserer").style.display = "none";
+    }
+
+    /** On affiche le formulaire d'insertion */
+    document.getElementById("formInserer").style.display = "initial";
 }
