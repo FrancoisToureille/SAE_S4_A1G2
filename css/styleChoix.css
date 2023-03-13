@@ -52,8 +52,6 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: #0071B9;
-    color: black;
     padding: 10px;
     margin-right: 80%;
     font-family: 'Open Sans';
@@ -66,18 +64,12 @@ header{
     font-family: 'Open Sans Regular';
 }
 
-.titre{
-    color: #FBBA00;
-}
-
 .menu{
     display: flex;
     flex-direction: column;
 }
 
 .presentation{
-    background-color: lightgrey;
-    color: black;
     margin: 40px;
     padding: 20px;
     height: fit-content;
@@ -119,7 +111,6 @@ header{
     border-style:solid;
     border-color: black;
     border-width:3px;
-    background-color:#f0f0f0;
     animation: slidePopUpIn 1s ease forwards/*, slidePopUpOut 5s ease forwards*/;
     border-radius: 20px;
 }
@@ -184,7 +175,6 @@ header{
 .valideChoix{
     display: flex;
     justify-content: center;
-    background-color: lightgray;
     border-style: solid;
     border-color: black;
     border-radius: 0px;
@@ -200,7 +190,6 @@ header{
 #continueChoix{
     display: flex;
     justify-content: center;
-    background-color: lightgray;
     border-style: solid;
     border-color: black;
     border-radius: 0px;
@@ -226,11 +215,9 @@ header{
 }
 
 button {
-    background-color: #00B7E9;
     /* bleu */
     border-radius: 30px;
     border: none;
-    color: white;
     /*padding: 30px 50px;*/
     text-align: center;
     text-decoration: none;
@@ -266,18 +253,10 @@ button:hover {
     transition: width 0.5s, height 10.5s;
 }
 
-button:active {
-    background-color: #3e638e;
-    box-shadow: 0 5px rgb(102, 102, 102);
-    transform: translateY(4px);
-}
-
 body{
     background-size: cover;
     font-family: 'Open Sans';
 }
-
-
 
 #popup_video{
     position:absolute;
@@ -293,6 +272,22 @@ body{
     border-width:3px;
     background-color:#f0f0f0;
     border-radius: 20px;
+}
+
+#lienButton{
+    display: flex;
+    justify-content: center;
+    /* bleu */
+    border-radius: 30px;
+    border: none;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 15px;
+    width: 100px;
+    height: 50px;
+    font-family: 'Open Sans Bold';
+    transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
+    align-items: center;
 }
 
 @keyframes fadein {

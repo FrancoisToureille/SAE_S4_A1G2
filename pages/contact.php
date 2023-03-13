@@ -9,6 +9,7 @@ function startContact() { ?>
             <link rel="icon" type="image/x-icon" href="../images/Bachelor.ico" sizes="96x96" /> 
             <script src="../javascript.js"></script>
             <link rel="stylesheet" href="../css/styleContact.css">
+            <link rel="stylesheet" href="../css/styleGeneral.css">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
             <meta name="description" content="Page de contact du jeu Objectif BUT">
@@ -20,6 +21,7 @@ function startContact() { ?>
                     <div class="rubrique_menu"><h1 class="contact_titre">Nous contacter</h1></div>
                 </div>
             </header>
+            <a id="lienButton" style="color: white;" href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
             <div class="menu">
                 <div class="presentation_form vignets">
                     <div class="titre_mail">

@@ -180,3 +180,67 @@ function afficherInserer() {
     /** On affiche le formulaire d'insertion */
     document.getElementById("formInserer").style.display = "initial";
 }
+
+var themeOther = "<link id='theme' rel='stylesheet' href='/css/styleSombre.css' />";
+var localStorage_theme = localStorage.getItem("themeCouleur");
+var localStorage_themeFont = localStorage.getItem("themePolice");
+
+window.addEventListener("load", switchTheme_avanced_init);
+
+function switchTheme_avanced_onClick(e){
+    e.preventDefault();
+
+    if (localStorage_theme === undefined || localStorage_theme === "/css/styleGeneral"){
+        localStorage_theme = "/css/styleSombre";
+    } else {
+        localStorage_theme = "/css/styleGeneral";
+    }
+
+    localStorage.setItem("themeCouleur", localStorage_theme);
+
+    window.location.reload();
+}
+
+function switchTheme_avanced_init () {
+    var localStorage_theme = localStorage.getItem("themeCouleur");
+    var hhead = document.getElementsByTagName("head")[0];
+
+    if (localStorage_theme === "/css/styleSombre"){
+        hhead.innerHTML = hhead.innerHTML + themeOther;
+    }
+    else if(localStorage_theme === "/css/styleSombre" && localStorage_themeFont === "/css/stylePolice"){
+        hhead.innerHTML = hhead.innerHTML + themeOther + themeOtherFont;
+    }
+}
+
+////////////////////////////
+
+var themeOtherFont = "<link id='theme' rel='stylesheet' href='/css/stylePolice.css' />";
+
+window.addEventListener("load", switchThemeFont_avanced_init);
+
+function switchThemeFont_avanced_onClick(e){
+    e.preventDefault();
+
+    if (localStorage_themeFont === undefined || localStorage_themeFont === "/css/styleGeneral"){
+        localStorage_themeFont = "/css/stylePolice";
+    } else {
+        localStorage_themeFont = "/css/styleGeneral";
+    }
+
+    localStorage.setItem("themePolice", localStorage_themeFont);
+
+    window.location.reload();
+}
+
+function switchThemeFont_avanced_init () {
+    var localStorage_themeFont = localStorage.getItem("themePolice");
+    var hhead = document.getElementsByTagName("head")[0];
+
+    if (localStorage_themeFont === "/css/stylePolice"){
+        hhead.innerHTML = hhead.innerHTML + themeOtherFont;
+    }
+    else if(localStorage_theme === "/css/styleSombre" && localStorage_themeFont === "/css/stylePolice"){
+        hhead.innerHTML = hhead.innerHTML + themeOther + themeOtherFont;
+    }
+}

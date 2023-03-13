@@ -1,0 +1,68 @@
+body{
+    background-color: black;
+}
+
+header{
+    background-color: #2a2c30;
+    color: white;
+}
+
+.titre{
+    color: #8d939e;
+}
+
+.presentation{
+    color: white;
+    background-color: #2a2c30;
+}
+
+button{
+    background-color: #2a2c30;
+}
+
+.lien{
+    background-color: #2a2c30;
+}
+
+#lienButton{
+    background-color: #2a2c30;
+}
+
+.lien:active{
+    background-color: #8d939e;
+}
+
+#titreChoix{
+    color: white;
+}
+
+#popup{
+    background-color: #2a2c30;
+    color: white;
+}
+
+.bouton_popup{
+    background-color: #2a2c30;
+    color: white;
+}
+
+.valideChoix{
+    background-color: black;
+    color: white;
+}
+
+#continueChoix{
+    background-color: black;
+    color: white;
+}
+
+#popup_video{
+    border-color: black;
+    background-color:#2a2c30;
+    color: white;
+}
+
+.presentation_form{
+    background-color: #2a2c30;
+    color: white;
+}

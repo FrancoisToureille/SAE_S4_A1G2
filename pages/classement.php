@@ -67,6 +67,7 @@ function start_classement($e,$nb) {
                 <div class="rubrique_menu"><h1 class="classement_titre">Classement</h1></div>
             </div>
         </header>
+        <a id="lienButton" style="color: white;" href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
         <div class="menu">
             <table id="classement_tab" class="vignets">
                 <tr id="premiere_ligne">
@@ -79,7 +80,7 @@ function start_classement($e,$nb) {
                 <?php $x = 0 ?>
                 <?php while($nb > $x/3) { ?>
                 <tr>
-                    <td></td>
+                    <td><?php echo ($x/3 + 1);?></td>
                     <td><?php echo $e[$x]; $x = $x + 1; ?></td>
                     <td><?php echo $e[$x]; $x = $x + 1; ?></td>
                     <td><?php echo $e[$x]; $x = $x + 1;?></td>

@@ -188,6 +188,23 @@ button:active {
     -webkit-animation: fadein 2s; /* Safari et Chrome */
     -o-animation: fadein 2s; /* Opera */
 }
+
+#lienButton{
+    display: flex;
+    justify-content: center;
+    /* bleu */
+    border-radius: 30px;
+    border: none;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 15px;
+    width: 100px;
+    height: 50px;
+    font-family: 'Open Sans Bold';
+    transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
+    align-items: center;
+}
+
 @keyframes fadein {
     from {
         opacity:0;

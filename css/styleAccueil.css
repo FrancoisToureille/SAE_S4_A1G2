@@ -50,8 +50,6 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: #0071B9;
-    color: black;
     padding: 10px;
     font-family: 'Open Sans Bold';
 }
@@ -83,8 +81,6 @@ header{
 
 .presentation{
     display: flex;
-    background-color: lightgrey;
-    color: black;
     justify-content: center;
     flex-direction: column;
     margin: 40px;
@@ -105,7 +101,6 @@ header{
 }
 
 button {
-    background-color: #00B7E9;
     /* bleu */
     border-radius: 30px;
     border: none;
@@ -147,15 +142,29 @@ a{
 .lien{
     display: flex;
     justify-content: center;
-    background-color: #00B7E9;
     /* bleu */
     border-radius: 30px;
     border: none;
-    color: white;
     text-align: center;
     font-size: 25px;
     width: 250px;
     height: 100px;
+    font-family: 'Open Sans Bold';
+    transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
+    align-items: center;
+}
+
+#lienButton{
+    display: flex;
+    justify-content: center;
+    /* bleu */
+    border-radius: 30px;
+    border: none;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 15px;
+    width: 100px;
+    height: 50px;
     font-family: 'Open Sans Bold';
     transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
     align-items: center;
@@ -169,7 +178,6 @@ a{
 }
 
 .lien:active{
-    background-color: #3e638e;
     box-shadow: 0 5px rgb(102, 102, 102);
     transform: translateY(4px);
 }
@@ -257,6 +265,11 @@ a{
     transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
 }
 
+#boutonMode{
+    display: flex;
+    flex-direction: row;
+}
+
 @media screen and (max-width: 750px){
 
     h1{
@@ -294,7 +307,6 @@ a{
     .lien{
         display: flex;
         justify-content: center;
-        background-color: #00B7E9;
         /* bleu */
         border-radius: 30px;
         border: none;
@@ -306,6 +318,10 @@ a{
         font-family: 'Open Sans Bold';
         transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
         align-items: center;
+    }
+
+    #lienButton{
+        justify-content: center;
     }
 }
 .videoCSSResp{

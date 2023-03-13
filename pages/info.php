@@ -9,6 +9,7 @@ function startInfo() { ?>
             <link rel="icon" type="image/x-icon" href="../images/Bachelor.ico" sizes="96x96" /> 
             <script src="../javascript.js"></script>
             <link rel="stylesheet" href="../css/styleInfo.css">
+            <link rel="stylesheet" href="../css/styleGeneral.css">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
             <meta name="description" content="Page à propos du jeu Objectif BUT pour en savoir plus sur le projet et pour avoir accès aux sources">
@@ -20,6 +21,10 @@ function startInfo() { ?>
                     <div class="rubrique_menu"><h1 class="a_propos">A propos</h1></div>
                 </div>
             </header>
+            <div id="boutonMode">
+                <a id="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+                <a id="lienButton" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police aggrandie <i id="changetheme"></i></a>
+            </div>
             <div class="menu">
                 <div class="presentation vignets">
                     <h2>
