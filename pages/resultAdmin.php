@@ -48,29 +48,29 @@ function resultatAdmin() { ?>
                     </div>
 
                     <div style="display:flex; flex-direction:row; justify-content:space-between;padding-bottom: 30px;">
-                        <button id="questionsGenerales" onclick="afficherListeQuestions('listeQuestionsGenerales')">Questions Generales</button>
+                        <button class="buttonAdmin" id="questionsGenerales" onclick="afficherListeQuestions('listeQuestionsGenerales')">Questions Generales</button>
 
-                        <button id="questionsWeb" onclick="afficherListeQuestions('listeQuestionsWeb')">Questions Web</button>
+                        <button class="buttonAdmin" id="questionsWeb" onclick="afficherListeQuestions('listeQuestionsWeb')">Questions Web</button>
                         
-                        <button id="questionsBD" onclick="afficherListeQuestions('listeQuestionsBD')">Questions BD</button>
+                        <button class="buttonAdmin" id="questionsBD" onclick="afficherListeQuestions('listeQuestionsBD')">Questions BD</button>
                     </div>
 
                     <div style="display:flex; flex-direction:row; justify-content:space-between;">
 
-                        <button id="questionsReseaux" onclick="afficherListeQuestions('listeQuestionsReseaux')">Questions Reseaux</button>
+                        <button class="buttonAdmin" id="questionsReseaux" onclick="afficherListeQuestions('listeQuestionsReseaux')">Questions Reseaux</button>
 
-                        <button id="questionsProgrammation" onclick="afficherListeQuestions('listeQuestionsProgrammation')">Questions Programmation</button>
+                        <button class="buttonAdmin" id="questionsProgrammation" onclick="afficherListeQuestions('listeQuestionsProgrammation')">Questions Programmation</button>
                         
-                        <button onclick="afficherInserer()">Insérer</bouton>             
+                        <button class="buttonAdmin" onclick="afficherInserer()">Insérer</bouton>             
 
                     </div>
 
                 </div>
                 <form id ="formInserer" style="display:none" action="inserer.php" method="POST">  
                   
-                    <input name="libelle" type="text"  placeholder="Libelle" placeholder="libelle">
+                    <input class="formInput" name="libelle" type="text"  placeholder="Libelle" placeholder="libelle">
                     
-                    <select name="theme">
+                    <select class="formInput formInputSelect" name="theme">
                         <option>theme</option>
                         <option value="General">Général</option>
                         <option value="BD">BD</option>
@@ -81,45 +81,45 @@ function resultatAdmin() { ?>
                     
                     </select>
 
-                    <select name="difficulte">
+                    <select class="formInput formInputSelect" name="difficulte">
                         <option>difficulté(1 ou 2)</option>
                         <option value=1>1</option>
                         <option value=2>2</option>
                     </select>
 
-                    <input id="indice" name="indice" type="text" placeholder="indice">
+                    <input class="formInput" id="indice" name="indice" type="text" placeholder="indice">
 
-                    <input id="explication" name="explication" type="text" placeholder="explication">
+                    <input class="formInput" id="explication" name="explication" type="text" placeholder="explication">
 
-                    <input id="reponse1" name="reponse1" type="text" placeholder="réponse 1">
-                    <select name="bonneRep1">
+                    <input class="formInput" id="reponse1" name="reponse1" type="text" placeholder="réponse 1">
+                    <select class="formInput formInputSelect" name="bonneRep1">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
 
-                    <input id="reponse2" name="reponse2" type="text" placeholder="réponse 2">
-                    <select name="bonneRep2">
+                    <input class="formInput" id="reponse2" name="reponse2" type="text" placeholder="réponse 2">
+                    <select class="formInput formInputSelect" name="bonneRep2">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
 
-                    <input id="reponse3" name="reponse3" type="text" placeholder="réponse 3">
-                    <select name="bonneRep3">
+                    <input class="formInput" id="reponse3" name="reponse3" type="text" placeholder="réponse 3">
+                    <select class="formInput formInputSelect" name="bonneRep3">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
 
-                    <input id="reponse4" name="reponse4" type="text" placeholder="réponse 4">
-                    <select name="bonneRep4">
+                    <input class="formInput" id="reponse4" name="reponse4" type="text" placeholder="réponse 4">
+                    <select class="formInput formInputSelect" name="bonneRep4">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
 
-                    <input type="submit" name="action" value="Insérer"/>
+                    <input class="formInput formInputSelect" type="submit" name="action" value="Insérer"/>
                 </form>
              
                 <div id="listeQuestionsGenerales" style="display:none">
@@ -158,7 +158,7 @@ function startContact() {
     if($action == 'valider' || $action == 'Retourner vers Interface Admin') 
 
  { 
-    if($Identifiant == 'Patricia' & $Motdepasse == trouveMotDePasse()) {
+    if($Identifiant == 'Patricia' & $Motdepasse == trouveMotDePasseDeux("286642","ButInformatiqueBD")) {
 
         resultatAdmin();
     }
@@ -175,24 +175,24 @@ function startContact() {
 
 function boutonTheme($theme,$numeroQuestion){
     if($theme == "Web") {?>
-        <button style="margin:20px;" onclick="afficheQuestionsTest('Web',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+        <button class="buttonAdmin" style="margin:20px;" onclick="afficheQuestionsTest('Web',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
     <?php
     }
     else if($theme == "General") {?>
-        <button style="margin:20px;" onclick="afficheQuestionsTest('General',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+        <button class="buttonAdmin" style="margin:20px;" onclick="afficheQuestionsTest('General',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
     <?php
     }
 
     else if($theme == "BD") {?>
-        <button style="margin:20px;" onclick="afficheQuestionsTest('BD',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+        <button class="buttonAdmin" style="margin:20px;" onclick="afficheQuestionsTest('BD',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
     <?php
     }
     else if($theme == "Reseaux") {?>
-        <button style="margin:20px;" onclick="afficheQuestionsTest('Reseaux',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+        <button class="buttonAdmin" style="margin:20px;" onclick="afficheQuestionsTest('Reseaux',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
     <?php
     }
     else if($theme == "Programmation") {?>
-        <button style="margin:20px;" onclick="afficheQuestionsTest('Programmation',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
+        <button class="buttonAdmin" style="margin:20px;" onclick="afficheQuestionsTest('Programmation',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
     <?php
     }
 }
@@ -203,7 +203,7 @@ function donneListe($THEME,$user,$pass){
     $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
  //on appelle le pdo
 
-    // On ecris la requette avec les paramettres de la fonction
+    // On ecris la requete avec les paramettres de la fonction
     $stmt=$connexionBD->prepare("SELECT Q.ID_QUESTION, Q.LIBELLE , Q.DIFFICULTE, Q.INDICE, Q.EXPLICATION,
      GROUP_CONCAT(R.LIBELLE) AS REPONSES,
      GROUP_CONCAT(R.BONNE_REP) AS VALIDITES 
@@ -219,70 +219,70 @@ function donneListe($THEME,$user,$pass){
         ?>
             <div class = "question" id=<?php echo $numQuestion;?> style="display:none">
                 <form class ="formModifier" action="modifier.php" method="POST">
-                    <input name="id" style="display:none" type="text" value =<?php echo $result[$i]['ID_QUESTION'];?>>
-                    <input name="libelle" type="text"  placeholder="Libelle" placeholder="libelle">
-                    <select name="difficulte" placeholder="1 bon, 0 mauvais">
+                    <input class="formInput" name="id" style="display:none" type="text" value =<?php echo $result[$i]['ID_QUESTION'];?>>
+                    <input class="formInput" name="libelle" type="text"  placeholder="Libelle" placeholder="libelle">
+                    <select class="formInput formInputSelect" name="difficulte" placeholder="1 bon, 0 mauvais">
                         <option>difficulté(1 ou 2)</option>
                         <option value=1>1</option>
                         <option value=2>2</option>
                     </select>
-                    <input id="indice" name="indice" type="text" placeholder="indice">
-                    <input id="explication" name="explication" type="text" placeholder="explication">
-                    <input id="reponse1" name="reponse1" type="text" placeholder="réponse 1">
-                    <select name="bonneRep1" placeholder="1 bon, 0 mauvais">
+                    <input class="formInput" id="indice" name="indice" type="text" placeholder="indice">
+                    <input class="formInput" id="explication" name="explication" type="text" placeholder="explication">
+                    <input class="formInput" id="reponse1" name="reponse1" type="text" placeholder="réponse 1">
+                    <select class="formInput formInputSelect" name="bonneRep1" placeholder="1 bon, 0 mauvais">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
-                    <input id="reponse2" name="reponse2" type="text" placeholder="réponse 2">
-                    <select name="bonneRep2" placeholder="1 bon, 0 mauvais">
+                    <input class="formInput" id="reponse2" name="reponse2" type="text" placeholder="réponse 2">
+                    <select class="formInput formInputSelect" name="bonneRep2" placeholder="1 bon, 0 mauvais">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
-                    <input id="reponse3" name="reponse3" type="text" placeholder="réponse 3">
-                    <select name="bonneRep3" placeholder="1 bon, 0 mauvais">
+                    <input class="formInput" id="reponse3" name="reponse3" type="text" placeholder="réponse 3">
+                    <select class="formInput formInputSelect" name="bonneRep3" placeholder="1 bon, 0 mauvais">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
-                    <input id="reponse4" name="reponse4" type="text" placeholder="réponse 4">
-                    <select name="bonneRep4" placeholder="1 bon, 0 mauvais">
+                    <input class="formInput" id="reponse4" name="reponse4" type="text" placeholder="réponse 4">
+                    <select class="formInput formInputSelect" name="bonneRep4" placeholder="1 bon, 0 mauvais">
                         <option>mauvais ou bon</option>
                         <option value=0>mauvais</option>
                         <option value=1>bon</option>
                     </select>
-                    <input type="submit" name="action" value="Modifier"/>
+                    <input class="formInput formInputSelect" type="submit" name="action" value="Modifier"/>
                 </form>
 
 
                 <div class = "libelleQuestion">
-                    <h3>Question : </h3>
+                    <h3 class="formTitles">Question : </h3>
                     <?php echo $result[$i]['LIBELLE'];?>
                 </div>
 
                 <div class = "difficulteQuestion">
-                        <h3>Difficulté : </h3>
+                        <h3 class="formTitles">Difficulté : </h3>
                         <?php echo $result[$i]['DIFFICULTE'];?>                   
                 </div>
 
                 <div class = "indiceQuestion">
-                    <h3>Indice : </h3>
+                    <h3 class="formTitles">Indice : </h3>
                     <?php echo $result[$i]['INDICE'];?>
                 </div>
 
                 <div class = "explicationQuestion">
-                    <h3>Explication : </h3>
+                    <h3 class="formTitles">Explication : </h3>
                         <?php echo $result[$i]['EXPLICATION'];?> 
                 </div>
 
                 <div class = "reponses">
-                    <h3>Reponses : </h3>
+                    <h3 class="formTitles">Reponses : </h3>
                         <?php echo $result[$i]['REPONSES'];?> 
                 </div>
 
                 <div class = "validites">
-                    <h3>Reponses Valides ou non : </h3>
+                    <h3 class="formTitles">Reponses Valides ou non : </h3>
                         <?php echo mauvaisOuBon($result[$i]['VALIDITES']);?> 
                 </div>
             </div>
@@ -293,23 +293,13 @@ function donneListe($THEME,$user,$pass){
 ?>
 
 <?php 
-/* fonction récupérant le mot de passe de l'administrateur dans la base de données */
-function trouveMotDePasse() {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net","286642","ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink , 'quizzbutinfoaix_bd')or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
- 
-    // créer une requête préparée
-    if ($stmt = mysqli_prepare($dbLink, "SELECT MDP FROM MOTDEPASSE WHERE ID_MDP=1")) {
-        // exécuter la requête
-        mysqli_stmt_execute($stmt);
-        // associer la colonne du jeu de résultats à une variable
-        mysqli_stmt_bind_result($stmt, $MDP);
-        // récupérer la valeur
-        mysqli_stmt_fetch($stmt);
-        return $MDP;
-        mysqli_stmt_close($stmt);
-    }
+/* fonction récupérant le mot de passe de l'administrateur dans la base de données: version pdo */
+function trouveMotDePasseDeux($user, $pass) {
+    $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+    $stmt=$connexionBD->prepare("SELECT MDP FROM MOTDEPASSE WHERE ID_MDP=1");
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result["MDP"];
 }
 ?>
 

@@ -18,7 +18,14 @@ function start_choix_spe() { ?>
             <a href="../index.php"><h1 class="titre">Objectif </h1></a>
             <a href="../index.php"><h1> BUT</h1></a>
         </header>
+       
         <a id="lienButton" style="color: white;" href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+        
+        <div id = "intro">
+            <div class="video"><iframe class="videoPopUp videoAnim videoCSS" src="https://www.youtube.com/embed/3HMh95gDKDI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div id="txtIntro"><p>Texte présentation du jeu</p></div>
+            <button class="valideChoix" onclick="closeScreenIntro()">OK</button>
+        </div>
         <div class="menu">
             <div id="specialite">rien</div>
             <div id="popup">

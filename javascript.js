@@ -244,3 +244,9 @@ function switchThemeFont_avanced_init () {
         hhead.innerHTML = hhead.innerHTML + themeOther + themeOtherFont;
     }
 }
+function closeScreenIntro() {
+    for (let element of document.getElementsByClassName("menu")){
+        element.style.display="initial";
+    }
+    document.getElementById('intro').style.display="none";
+}

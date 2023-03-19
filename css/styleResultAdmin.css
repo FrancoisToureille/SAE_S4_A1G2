@@ -9,18 +9,6 @@
     src: url('../OpenSans/OpenSans-Bold.ttf') format('truetype');
 }
 
-#formInserer{
-    display: none;
-}
-
-#formSupprimer{
-    display: none;
-}
-
-#formModifier{
-    display: none;
-}
-
 body{
     background-size: cover;
     font-family: 'Open Sans';
@@ -72,10 +60,45 @@ header{
     font-family: 'Open Sans Regular';
 }
 
+input{
+    text-align: center;
+}
+
 .menu{
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+
+#formInserer{
+    display: none;
+}
+
+#formSupprimer{
+    display: none;
+}
+
+#formModifier{
+    display: none;
+}
+
+.formInput{
+    border-radius: 15px;
+    width: 15vw;
+    height: 2vw;
+    margin: 0.5vw;
+}
+
+.formInputSelect{
+    text-align: center;
+}
+
+.formTitles{
+    font-family: 'Open Sans Bold';
+    font-size: 1.5vw;
+    margin: 0.5vw;
+    margin-left: 0vw;
 }
 
 button {
