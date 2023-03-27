@@ -23,7 +23,7 @@ function startInfo() { ?>
             </header>
             <div id="boutonMode">
                 <a id="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
-                <a id="lienButton" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police aggrandie <i id="changetheme"></i></a>
+                <a id="lienButton" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police agrandie <i id="changetheme"></i></a>
             </div>
             <div class="menu">
                 <div class="presentation vignets">
