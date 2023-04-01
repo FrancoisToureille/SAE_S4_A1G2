@@ -426,7 +426,7 @@ function questionsGeneralesUnPdo($user, $pass){
             {
                 $numQuestion = "question" . $i;   
                 ?>
-                    <div class = "questionDifficulte1" id = <?php echo $numQuestion;?>>
+                    <div class = "questionRecuperee" id = <?php echo $numQuestion;?>>
                 
                         <p id = <?php echo "Libelle" . $i;?>> <?php echo $result[$i]["LIBELLE"];?> </p>
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i]["INDICE"];?> </p>
@@ -463,7 +463,7 @@ function questionsGeneralesDeuxPdo($user, $pass){
             {
                 $numQuestion = "question" . $i;   
                 ?>
-                    <div class = "questionDifficulte1" id = <?php echo $numQuestion;?>>    
+                    <div class = "questionRecuperee" id = <?php echo $numQuestion;?>>    
                         <p id = <?php echo "Libelle" . $i;?>> <?php echo $result[$i-5]["LIBELLE"];?> </p>
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i-5]["INDICE"];?> </p>
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-5]["EXPLICATION"];?> </p>
@@ -498,7 +498,7 @@ function questionsSpeUnPdo($user, $pass,$THEME){
             {
                 $numQuestion = "question" . $i;   
                 ?>
-                    <div class = "questionDifficulte1" id = <?php echo $numQuestion;?>>    
+                    <div class = "questionRecuperee" id = <?php echo $numQuestion;?>>    
                         <p id = <?php echo "Libelle" . $i;?>> <?php echo $result[$i-3]["LIBELLE"];?> </p>
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i-3]["INDICE"];?> </p>
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-3]["EXPLICATION"];?> </p>
@@ -533,7 +533,7 @@ function questionsSpeDeuxPdo($user, $pass,$THEME){
             {
                 $numQuestion = "question" . $i;   
                 ?>
-                    <div class = "questionDifficulte1" id = <?php echo $numQuestion;?>>    
+                    <div class = "questionRecuperee" id = <?php echo $numQuestion;?>>    
                         <p id = <?php echo "Libelle" . $i;?>> <?php echo $result[$i-8]["LIBELLE"];?> </p>
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i-8]["INDICE"];?> </p>
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-8]["EXPLICATION"];?> </p>

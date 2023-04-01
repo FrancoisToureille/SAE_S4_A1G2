@@ -1,53 +1,47 @@
 <?php
 /*fonction permettant d'ajouter un gagnant dans la base de données*/
-function AjouteGagnant($pseudo, $score,$spe)
+function AjouteGagnant($user, $pass, $pseudo, $score, $spe)
 {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net", "286642", "ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink, 'quizzbutinfoaix_bd') or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
+    try {
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $queryReponse = mysqli_prepare($dbLink, 'INSERT Into GAGNANT(NOM_GAGNANT, SCORE,SPECIALITE) Values (?, ?, ?);');
-    mysqli_stmt_bind_param($queryReponse, "sss", $pseudo, $score, $spe);
-    mysqli_execute($queryReponse);
-    mysqli_stmt_close($queryReponse);
-}
-?>
+        $queryReponse = $connexionBD->prepare('INSERT Into GAGNANT(NOM_GAGNANT, SCORE, SPECIALITE) Values (?, ?, ?);');
+        $queryReponse->execute([$pseudo, $score, $spe]);
+        $queryReponse->closeCursor();
 
-<?php
-/*fonction permettant de renvoyer la liste des gagnants dans la base de données*/
-function recupGagnant() {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net","286642","ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink , 'quizzbutinfoaix_bd')or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
-    $query = 'SELECT * FROM GAGNANT ORDER BY SCORE DESC';
-    $result = mysqli_query($dbLink, $query);
-    if (!$result)
-    {
-    echo 'Impossible d\'exécuter la requête ', $query, ' : ', mysqli_error($dbLink);
+    } catch (PDOException $erreur) {
+        echo "Erreur : " . $erreur->getMessage();
     }
-    else
-    {
-        if (mysqli_num_rows($result) != 0)
-        {
-            $listeGagnant=array();
-            while ($row = mysqli_fetch_assoc($result))
-            {
-               
-                    $listeGagnant[] = $row['NOM_GAGNANT'];
-                    $listeGagnant[] = $row['SPECIALITE'];
-                    $listeGagnant[] = $row['SCORE'];
+}
 
-            }
-            return $listeGagnant;
-           
-        } 
-    } 
+/*fonction permettant de renvoyer la liste des gagnants dans la base de données*/
+function recupGagnant($user,$pass) {
+    try {
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $query = 'SELECT * FROM GAGNANT ORDER BY SCORE DESC';
+        $stmt = $connexionBD->query($query);
+        $listeGagnants = array();
+        
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $listeGagnants[] = $row['NOM_GAGNANT'];
+            $listeGagnants[] = $row['SPECIALITE'];
+            $listeGagnants[] = $row['SCORE'];
+        }
+        
+        return $listeGagnants;
+    } catch (PDOException $erreur) {
+        echo "Erreur : " . $erreur->getMessage();
+    }
 }
 ?>
 
 
 <?php 
 /*fonction démarrant la page classement*/
-function start_classement($e,$nb) { 
+function start_classement($gagnants,$nb) { 
     ?>
     <!DOCTYPE html>
     <html lang="fr">
@@ -81,9 +75,9 @@ function start_classement($e,$nb) {
                 <?php while($nb > $x/3) { ?>
                 <tr>
                     <td><?php echo ($x/3 + 1);?></td>
-                    <td><?php echo $e[$x]; $x = $x + 1; ?></td>
-                    <td><?php echo $e[$x]; $x = $x + 1; ?></td>
-                    <td><?php echo $e[$x]; $x = $x + 1;?></td>
+                    <td><?php echo $gagnants[$x]; $x = $x + 1; ?></td>
+                    <td><?php echo $gagnants[$x]; $x = $x + 1; ?></td>
+                    <td><?php echo $gagnants[$x]; $x = $x + 1;?></td>
                 </tr>
                 <?php } ?>
             </table>
@@ -93,19 +87,17 @@ function start_classement($e,$nb) {
 <?php } ?>
 
 <?php 
-
 if (isset($_POST['pseudo'])) {
     $pseudo=$_POST['pseudo'];
     $score=$_POST['score'];
     $spe = $_POST["spe"];
-    AjouteGagnant($pseudo,$score,$spe);
-
+    AjouteGagnant("286642", "ButInformatiqueBD", $pseudo, $score, $spe);
 }
 /*si il n'y a aucun gagnant, on évite l'erreur en gardant toujours au moins un gagnant*/
-if(recupGagnant() == 0){
-    AjouteGagnant("test",0,"programmation");
+if(recupGagnant("286642", "ButInformatiqueBD") == 0){
+    AjouteGagnant("286642", "ButInformatiqueBD", "test", 0, "programmation");
 }
-$e = recupGagnant();
-$nb= sizeof($e)/3;
-start_classement($e,$nb);
+$gagnants = recupGagnant("286642", "ButInformatiqueBD");
+$nb= sizeof($gagnants)/3;
+start_classement($gagnants, $nb);
 ?>

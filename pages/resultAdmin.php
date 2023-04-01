@@ -1,6 +1,6 @@
 <?php
 function mauvaisOuBon($booleen) {
-    if($booleen!=null && $booleen.length==7) {
+    if($booleen!=null && strlen($booleen)==7) {
         for($i = 0; $i<7; $i=$i+2) {
             if($booleen[$i]==1) {
                 echo "bon ";
@@ -13,10 +13,6 @@ function mauvaisOuBon($booleen) {
     
 }
 
-?>
-
-
-<?php 
 /*fonction démarrant la page de gestion de l'administrateur*/
 function resultatAdmin() { ?>
 <!DOCTYPE html>
@@ -291,214 +287,181 @@ function trouveMotDePasseDeux($user, $pass) {
 
 
 /** Ajout */
-/* fonction permettant à l'administrateur d'ajouter une question */
-function AjouteQuestion($Libelle, $Theme, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
+
+
+/* fonction permettant à l'administrateur d'ajouter une question en PDO */
+function AjouteQuestionPdo($user, $pass, $Libelle, $Theme, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
 {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net", "286642", "ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink, 'quizzbutinfoaix_bd') or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
 
-    $queryId = mysqli_query($dbLink, "SELECT max(ID_QUESTION) From QUESTION; ");
-    $IdQuestion = mysqli_fetch_assoc($queryId);
-    $IdQuestion = $IdQuestion["max(ID_QUESTION)"] + 1;
+    try {
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        
+        $queryId = $connexionBD->query("SELECT max(ID_QUESTION) MAX_ID From QUESTION");
+        $IdQuestion = $queryId->fetch(PDO::FETCH_ASSOC);
+        /* On ajoute 1 à l'id de la question pour avoir un id unique */
+        $IdQuestion = $IdQuestion["MAX_ID"] + 1;
 
-    $queryQuestion = mysqli_prepare($dbLink, 'INSERT Into QUESTION Values (?, ?, ?, ?, ?, ?);');
-    mysqli_stmt_bind_param($queryQuestion, "ssssss", $IdQuestion, $Libelle, $Theme, $Difficulte, $Indice, $Explication);
-    mysqli_execute($queryQuestion);
-    mysqli_stmt_close($queryQuestion);
+        $queryQuestion = $connexionBD->prepare('INSERT Into QUESTION Values (?, ?, ?, ?, ?, ?)');
+        $queryQuestion->execute([$IdQuestion, $Libelle, $Theme, $Difficulte, $Indice, $Explication]);
+        
+        //On recupere l'id de la question qu'on vient de créer
+        $queryIdQuestion = $connexionBD->prepare('SELECT ID_QUESTION From QUESTION Where LIBELLE = ?;');
+        $queryIdQuestion->execute([$Libelle]);
+        $IdQuestion = $queryIdQuestion->fetch(PDO::FETCH_ASSOC);
+        $IdQuestion = $IdQuestion["ID_QUESTION"];
 
-    //On recupere l'id de la question qu'on vient de créer
-    $queryIdQuestion = mysqli_prepare($dbLink, 'SELECT ID_QUESTION From QUESTION Where LIBELLE = ?;');
-    mysqli_stmt_bind_param($queryIdQuestion, "s", $Libelle);
-    mysqli_execute($queryIdQuestion);
-    mysqli_stmt_bind_result($queryIdQuestion, $IdQuestion);
-    mysqli_stmt_fetch($queryIdQuestion);
-    mysqli_stmt_close($queryIdQuestion);
+        /* On ajoute les réponses à la question insérée, 4 réponses possibles */
+        AjouteReponsePdo($IdQuestion, $Rep1, $Bon1, 1, $connexionBD);
+        AjouteReponsePdo($IdQuestion, $Rep2, $Bon2, 2, $connexionBD);
+        AjouteReponsePdo($IdQuestion, $Rep3, $Bon3, 3, $connexionBD);
+        AjouteReponsePdo($IdQuestion, $Rep4, $Bon4, 4, $connexionBD);
 
-    AjouteReponse($IdQuestion, $Rep1, $Bon1);
-    AjouteReponse($IdQuestion, $Rep2, $Bon2);
-    AjouteReponse($IdQuestion, $Rep3, $Bon3);
-    AjouteReponse($IdQuestion, $Rep4, $Bon4);
+        $connexionBD = null;
+    } catch (PDOException $erreur) {
+        die('Erreur relevée : ' . $erreur->getMessage());
+    }
 }
 
-/* fonction insérant une des réponses associée à une question */
-function AjouteReponse($IdQuestion, $Rep, $BonRep)
+/* fonction insérant une des réponses associée à une question : version pdo*/
+function AjouteReponsePdo($IdQuestion, $Rep, $BonRep, $Ordre, $connexionBD)
 {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net", "286642", "ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink, 'quizzbutinfoaix_bd') or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
-    $queryReponse = mysqli_prepare($dbLink, 'INSERT Into REPONSE(ID_QUESTION, BONNE_REP, LIBELLE) Values (?, ?, ?);');
-    mysqli_stmt_bind_param($queryReponse, "sss", $IdQuestion, $BonRep, $Rep);
-    mysqli_execute($queryReponse);
-    mysqli_stmt_close($queryReponse);
+    try {
+        $stmt = $connexionBD->prepare("INSERT Into REPONSE(ID_QUESTION, BONNE_REP, LIBELLE, ORDRE) Values (?, ?, ?, ?)");
+        $stmt->execute([$IdQuestion, $BonRep, $Rep, $Ordre ]);
+    } catch(PDOException $erreur) {
+        die('Erreur dans l\'insertion de la réponse : ' . $erreur->getMessage());
+    }
 }
 
 /** modification */
 
 /* fonction permettant à l'administrateur de modifier une question */
-function ModifieQuestion($Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
-{
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net", "286642", "ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink, 'quizzbutinfoaix_bd') or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-    
-    $queryReponse = mysqli_prepare($dbLink, 'UPDATE `QUESTION` SET `LIBELLE`=?,`DIFFICULTE`=?,`INDICE`=?,`EXPLICATION`=? WHERE ID_QUESTION=?;');
-    mysqli_stmt_bind_param($queryReponse, "sssss", $Libelle, $Difficulte, $Indice, $Explication, $Id);
-    mysqli_execute($queryReponse);
-    mysqli_stmt_close($queryReponse);
+function ModifieQuestionPdo($user, $pass, $Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
+{    
+    try {
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    ModifieReponse($Id, $Rep1, $Bon1, 0);
-    ModifieReponse($Id, $Rep2, $Bon2, 1);
-    ModifieReponse($Id, $Rep3, $Bon3, 2);
-    ModifieReponse($Id, $Rep4, $Bon4, 3);
+        $queryQuestion = $connexionBD->prepare('UPDATE `QUESTION` SET `LIBELLE`=:Libelle, `DIFFICULTE`=:Difficulte, `INDICE`=:Indice, `EXPLICATION`=:Explication WHERE ID_QUESTION=:Id;');
+        $queryQuestion->execute(array(':Id' => $Id, ':Libelle' => $Libelle, ':Difficulte' => $Difficulte, ':Indice' => $Indice, ':Explication' => $Explication));
+        $queryQuestion->closeCursor();
+        
+
+        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep1, $Bon1, 1);
+        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep2, $Bon2, 2);
+        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep3, $Bon3, 3);
+        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep4, $Bon4, 4);
+
+        $connexionBD = null;
+    } catch (PDOException $erreur) {
+        echo "Erreur relevée : " . $erreur->getMessage();
+    }
 }
 
 /* fonction permettant à l'administrateur de modifier les réponses d'une question */
-function ModifieReponse($IdQuestion, $Rep, $BonRep, $ligne)
+function ModifieReponsePdo($user,$pass, $IdQuestion, $Rep, $BonRep, $ligne)
 {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net", "286642", "ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink, 'quizzbutinfoaix_bd') or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
-    $queryReponse = mysqli_prepare($dbLink, 'UPDATE `REPONSE` SET `BONNE_REP`= ?,`LIBELLE`= ? WHERE ID_REP = (Select ID_REP FROM REPONSE WHERE ID_QUESTION = ? LIMIT 1 OFFSET ?);');
-    mysqli_stmt_bind_param($queryReponse, "ssss", $BonRep, $Rep, $IdQuestion, $ligne);
-    mysqli_execute($queryReponse);
-    mysqli_stmt_close($queryReponse);
+    try {
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $queryReponse = $connexionBD->prepare('UPDATE `REPONSE` SET `BONNE_REP`= ?,`LIBELLE`= ? WHERE ID_QUESTION = ? AND ORDRE = ?;');
+        $queryReponse->execute([$BonRep, $Rep, $IdQuestion, $ligne]);
+        $queryReponse->closeCursor();
+        $connexionBD = null;
+    } catch (PDOException $erreur) {
+        echo "Erreur relevée : " . $erreur->getMessage();
+    }
 }
+
 
 /* fonction vérifiant les paramètres rentrés par l'utilisateur avant de modifier la question */
-function VerifArguments($Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
+function VerifArgumentsPdo($user,$pass,$Id, $Libelle, $Difficulte, $Indice, $Explication,
+ $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
 {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net", "286642", "ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink, 'quizzbutinfoaix_bd') or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
-    $test = $Id != null or die('Id de la question a modifier obligatoire');
-
-    if ($Libelle == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT LIBELLE From QUESTION Where ID_QUESTION = ?;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Libelle);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
+    try {
+        $pdo = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } 
+    catch (PDOException $erreur) {
+        throw new PDOException($erreur->getMessage());
     }
 
-    if ($Difficulte == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT DIFFICULTE From QUESTION Where ID_QUESTION = ?;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Difficulte);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-    if ($Indice == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT INDICE From QUESTION Where ID_QUESTION = ?;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Indice);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-    if ($Explication == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT EXPLICATION From QUESTION Where ID_QUESTION = ?;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Explication);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
+    if (!$Id) {
+        die('L\'Id de la question doit être renseigné obligatoirement');
     }
 
+    $query = $pdo->prepare('SELECT LIBELLE, DIFFICULTE, INDICE, EXPLICATION FROM QUESTION WHERE ID_QUESTION = ?');
+    $query->execute([$Id]);
+    $result = $query->fetch(PDO::FETCH_ASSOC);
 
-    if ($Rep1 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT LIBELLE From REPONSE Where ID_QUESTION = ? LIMIT 1;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Rep1);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-    if ($Bon1 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT BONNE_REP From REPONSE Where ID_QUESTION = ? LIMIT 1;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Bon1);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-
-    if ($Rep2 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT LIBELLE From REPONSE Where ID_QUESTION = ? LIMIT 1 OFFSET 1;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Rep2);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-    if ($Bon2 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT BONNE_REP From REPONSE Where ID_QUESTION = ? LIMIT 1 OFFSET 1;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Bon2);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-
-    if ($Rep3 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT LIBELLE From REPONSE Where ID_QUESTION = ? LIMIT 1 OFFSET 2;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Rep3);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-    if ($Bon3 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT BONNE_REP From REPONSE Where ID_QUESTION = ? LIMIT 1 OFFSET 2;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Bon3);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-
-    if ($Rep4 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT LIBELLE From REPONSE Where ID_QUESTION = ? LIMIT 1 OFFSET 3;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Rep4);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-    if ($Bon4 == null) {
-        $query = mysqli_prepare($dbLink, 'SELECT BONNE_REP From REPONSE Where ID_QUESTION = ? LIMIT 1 OFFSET 3;');
-        mysqli_stmt_bind_param($query, "s", $Id);
-        mysqli_execute($query);
-        mysqli_stmt_bind_result($query, $Bon4);
-        mysqli_stmt_fetch($query);
-        mysqli_stmt_close($query);
-    }
-
-    ModifieQuestion($Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4);
-
-}
-
-/** suppression fonctions*/
-/* il faut avoir posté le formulaire de suppression, même avec des variables vides pour éviter d'arriver sur cette page sans être administrateur*/
-function supprimeQuestion($ID_QUESTION) {
-    $dbLink = mysqli_connect("mysql-quizzbutinfoaix.alwaysdata.net","286642","ButInformatiqueBD") or die('Erreur de connexion au serveur : ' . mysqli_connect_error());
-    mysqli_select_db($dbLink , 'quizzbutinfoaix_bd')or die('Erreur dans la sélection de la base : ' . mysqli_error($dbLink));
-
-    $queryRep = mysqli_prepare($dbLink, 'DELETE FROM REPONSE Where ID_QUESTION = ?;');
-    mysqli_stmt_bind_param($queryRep, 'i', $ID_QUESTION);
-    mysqli_execute($queryRep);
-    mysqli_stmt_close($queryRep);
+    /* si les arguments liés à la question ne sont pas renseignés, on les remplace par les valeurs de la base de données */
     
-    $queryQ = mysqli_prepare($dbLink, 'DELETE FROM QUESTION Where ID_QUESTION = ?;');
-    mysqli_stmt_bind_param($queryQ, 'i', $ID_QUESTION);
-    mysqli_execute($queryQ);
-    mysqli_stmt_close($queryQ);
+    if(empty($Libelle))
+        $Libelle = $result['LIBELLE'];
+
+    if($Difficulte != 1 && $Difficulte != 2)
+        $Difficulte = $result['DIFFICULTE'];
+
+    if(empty($Indice))
+        $Indice = $result['INDICE'];
+    
+    if(empty($Explication))
+        $Explication = $result['EXPLICATION'];
+
+    /* récupération des 4 réponses */
+    $query = $pdo->prepare('SELECT LIBELLE, BONNE_REP FROM REPONSE WHERE ID_QUESTION = ? ORDER BY ID_REP ASC LIMIT 4');
+    $query->execute([$Id]);
+    $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    /* si les arguments liés aux réponses associées ne sont pas renseignés, on les remplace par les valeurs de la base de données */
+
+    if(empty($Rep1))
+        $Rep1 = $results[0]['LIBELLE'];
+    if($Bon1 != 0 && $Bon1 != 1)
+        $Bon1 = $results[0]['BONNE_REP'];
+
+    if(empty($Rep2))
+        $Rep2 = $results[1]['LIBELLE'];
+    if($Bon2 != 0 && $Bon2 != 1)
+        $Bon2 = $results[1]['BONNE_REP'];
+
+    if(empty($Rep3))
+        $Rep3 = $results[2]['LIBELLE'];
+    if($Bon3 != 0 && $Bon3 != 1)
+        $Bon3 = $results[2]['BONNE_REP'];
+        
+    if(empty($Rep4))
+        $Rep4 = $results[3]['LIBELLE'];
+    if($Bon4 != 0 && $Bon4 != 1)
+        $Bon4 = $results[3]['BONNE_REP'];
+
+    ModifieQuestionPdo("286642","ButInformatiqueBD",$Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4);
 }
+
+/** Fonctions de suppression*/
+/* il faut avoir posté le formulaire de suppression, même avec des variables vides pour éviter d'arriver sur cette page sans être administrateur*/
+function supprimeQuestionPdo($user,$pass,$ID_QUESTION) {
+    try {
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $queryRep = $connexionBD->prepare('DELETE FROM REPONSE Where ID_QUESTION = ?;');
+        $queryRep->execute([$ID_QUESTION]);
+        $queryRep->closeCursor();
+
+        $queryQ = $connexionBD->prepare('DELETE FROM QUESTION Where ID_QUESTION = ?;');
+        $queryQ->execute([$ID_QUESTION]);
+        $queryQ->closeCursor();
+
+    } catch (PDOException $erreur) {
+        echo "Erreur : " . $erreur->getMessage();
+    }
+}
+
 /** Suppression| modification| insertion | Connexion sur la page*/
 
-if(isset($_POST["suppression"])){
-    $Id = $_POST["id"];
-    supprimeQuestion($Id);
+// supprimer une question
+if (isset($_POST["suppression"])) {
+    supprimeQuestionPdo("286642","ButInformatiqueBD",$_POST["id"]);
     resultatAdmin();
 }
 
@@ -517,7 +480,7 @@ if(isset($_POST["modification"])) {
     $bonneRep3 = $_POST["bonneRep3"];
     $reponse4 = $_POST["reponse4"];
     $bonneRep4 = $_POST["bonneRep4"];
-    VerifArguments($id, $libelle, $difficulte, $indice, $explication, $reponse1, $bonneRep1, $reponse2, $bonneRep2, $reponse3, $bonneRep3, $reponse4, $bonneRep4);
+    VerifArgumentsPdo("286642","ButInformatiqueBD",$id, $libelle, $difficulte, $indice, $explication, $reponse1, $bonneRep1, $reponse2, $bonneRep2, $reponse3, $bonneRep3, $reponse4, $bonneRep4);
     resultatAdmin();
 }
 
@@ -537,23 +500,17 @@ if(isset($_POST["insertion"])) {
     $bonneRep3 = $_POST["bonneRep3"];
     $reponse4 = $_POST["reponse4"];
     $bonneRep4 = $_POST["bonneRep4"];
-    AjouteQuestion($libelle, $theme, $difficulte, $indice, $explication, $reponse1, $bonneRep1, $reponse2, $bonneRep2, $reponse3, $bonneRep3, $reponse4, $bonneRep4);
+    AjouteQuestionPdo('286642','ButInformatiqueBD',$libelle, $theme, $difficulte, $indice, $explication, $reponse1, $bonneRep1, $reponse2, $bonneRep2, $reponse3, $bonneRep3, $reponse4, $bonneRep4);
     resultatAdmin();
 }
- 
-/* fonction permettant de lancer la page de gestion d'administrateur si l'identifiant et le mot de passe entrés sont corrects */
 
-if(isset($_POST['action']) && isset($_POST['id']) && isset($_POST['motDePasse'])) {
-    startContact();
-}
-
-function startContact() { 
+/* function permettant de lancer la page de gestion d'administrateur si l'identifiant et le mot de passe entrés sont corrects */
+function startConnexionAdmin() { 
     $action = $_POST['action'];
     $Identifiant = $_POST['id'];
     $motdepasse = $_POST['motDePasse'];
-    if($action == 'valider' || $action == 'Retourner vers Interface Admin') { 
+    if($action == 'valider') { 
         if($Identifiant == 'Patricia' & password_verify($motdepasse,trouveMotDePasseDeux("286642","ButInformatiqueBD"))) {
-
             resultatAdmin();
         }
         else {
@@ -562,4 +519,8 @@ function startContact() {
         }
     }
 }
-?>
+
+/* code lançant la connexion Administrateur si l'on se connecter */
+if(isset($_POST['action']) && isset($_POST['id']) && isset($_POST['motDePasse'])) {
+    startConnexionAdmin();
+}?>
