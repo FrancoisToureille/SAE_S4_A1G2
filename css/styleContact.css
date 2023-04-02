@@ -189,7 +189,7 @@ button:active {
     -o-animation: fadein 2s; /* Opera */
 }
 
-#lienButton{
+.lienButton{
     display: flex;
     justify-content: center;
     /* bleu */
@@ -203,6 +203,11 @@ button:active {
     font-family: 'Open Sans Bold';
     transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
     align-items: center;
+}
+
+#boutonMode{
+    display: flex;
+    flex-direction: row;
 }
 
 @keyframes fadein {
@@ -257,7 +262,7 @@ button:active {
     }
 
     .p_mail{
-        width: 75%;
+        width: 87%;
     }
 
     .presentation_form{
@@ -314,6 +319,10 @@ button:active {
         display: flex;
         justify-content: center;
         font-size: 160%;
+    }
+
+    #boutonMode{
+        justify-content: center;
     }
 }
 

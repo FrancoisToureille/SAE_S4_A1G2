@@ -9,6 +9,27 @@
     src: url('../OpenSans/OpenSans-Bold.ttf') format('truetype');
 }
 
+#boutonMode{
+    display: flex;
+    flex-direction: row;
+}
+
+.lienButton{
+    display: flex;
+    justify-content: center;
+    /* bleu */
+    border-radius: 30px;
+    border: none;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 15px;
+    width: 100px;
+    height: 50px;
+    font-family: 'Open Sans Bold';
+    transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
+    align-items: center;
+}
+
 #spe{
     display: none;
 }
@@ -78,6 +99,10 @@ header{
     color: #FBBA00;
 }
 
+#titreFinJeux{
+    display: flex;
+}
+
 .planPage{
     display: flex;
     flex-direction: row;
@@ -142,11 +167,14 @@ header{
 
 }
 
+
 .divBoutonValid{
     display: flex;
     justify-content: center;
     padding-bottom: 10%;
 }
+
+
 
 .formStyle{
     height: 70%
@@ -163,7 +191,7 @@ header{
     border: none;
     text-align: center;
     font-size: 15px;
-    font-family: 'Open Sans Regular';
+    font-family: 'Open Sans Bold';
     align-items: center;
 }
 
@@ -193,6 +221,14 @@ header{
     header{
         margin-left: 0%;
         border-radius: 0px 0px 0px 0px;
+    }
+
+    #boutonMode{
+        justify-content: center;
+    }
+
+    #changeFont{
+        display: none;
     }
     
 }
@@ -237,7 +273,7 @@ transform:translate(-50%, -50%);
 }
 
 h1 {
-font-family:monospace;
+    font-family: 'Open Sans Bold';
 }
 
 @keyframes slide {

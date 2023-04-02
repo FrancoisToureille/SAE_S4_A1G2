@@ -19,13 +19,37 @@ function start_choix_spe() { ?>
             <a href="../index.php"><h1> BUT</h1></a>
         </header>
        
-        <a id="lienButton" style="color: white;" href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
-        
-        <div id = "intro">
-            <div class="video"><iframe class="videoPopUp videoAnim videoCSS" src="https://www.youtube.com/embed/3HMh95gDKDI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-            <div id="txtIntro"><p>Texte présentation du jeu</p></div>
-            <button class="valideChoix" onclick="closeScreenIntro()">OK</button>
+        <div id="boutonMode">
+            <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
         </div>
+
+        <div id = "intro">
+            <div id="corps_intro">
+                <div class="video"><iframe id="videoIntro" class="videoPopUp videoAnim videoCSS" src="https://www.youtube.com/embed/3HMh95gDKDI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                <div id="txtIntro">
+                        <p>Dans Objectif BUT, vous devrez répondre à une série de questions en rapport avec le but en général 
+                            et une spécialité choisie afin d'avancer dans le plan du bâtiment et d'atteindre le BDE.</p>
+                        <p>Des vidéos explicatives vous seront fournies comme celle ci-dessous afin de vous aider 
+                            dans votre quête et d'en apprendre toujours plus.</p>
+                        <p>Bonne chance, amusez-vous bien et peut être à bientôt dans notre BUT Informatique !</p>     
+                </div>
+            </div>
+            <button class="valideChoix" id="valideChoixCol" onclick="closeScreenIntro()">OK</button>
+        </div>
+
+        <div id = "introMobile">
+            <div id="corps_introMobile">
+                <div class="video"><iframe id="videoIntroMobile" class="videoPopUp videoAnim videoCSS" src="https://www.youtube.com/embed/3HMh95gDKDI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                <div id="txtIntroMobile">
+                    <p>Dans Objectif BUT, vous devrez répondre à une série de questions en rapport avec le but en général 
+                            et une spécialité choisie afin d'avancer dans le plan du bâtiment et d'atteindre le BDE.</p>
+                    <p>Des vidéos explicatives vous seront fournies comme celle ci-dessous afin de vous aider 
+                            dans votre quête et d'en apprendre toujours plus.</p>
+                    <p>Bonne chance, amusez-vous bien et peut être à bientôt dans notre BUT Informatique !</p></div>
+            </div>
+            <button class="valideChoix" id="valideChoixCol" onclick="closeScreenIntro()">OK</button>
+        </div>
+
         <div class="menu">
             <div id="specialite">rien</div>
             <div id="popup">
@@ -70,7 +94,7 @@ function start_choix_spe() { ?>
                 </div>
             </div>
             <div>
-                <h2>Vers quel domaine pensez-vous vous diriger ?</h2>
+                <div id="titreChoix">Vers quel domaine pensez-vous vous diriger ?</div>
             </div>
             <div class="ensembleBouton">
                 <div class="bouton transi">

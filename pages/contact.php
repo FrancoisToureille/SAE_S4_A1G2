@@ -21,7 +21,10 @@ function startContact() { ?>
                     <div class="rubrique_menu"><h1 class="contact_titre">Nous contacter</h1></div>
                 </div>
             </header>
-            <a id="lienButton" style="color: white;" href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+            <div id="boutonMode">
+                <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+                <a class="lienButton" id="changeFont" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police agrandie <i id="changetheme"></i></a>
+            </div>
             <div class="menu">
                 <div class="presentation_form vignets">
                     <div class="titre_mail">
@@ -48,21 +51,20 @@ function startContact() { ?>
                     <div class="titre_mail">
                         Formulaire :
                     </div>
-                    <div class="info_mail">
-                        <div class="nom_prenom">
-                            <input class="nom" type="text" placeholder="Nom">
-                            <input class="prenom" type="text" placeholder="Prenom">
+                    <form name="form" action="mailto:toureillfrancois@gmail.com" method="post" enctype="text/plain">
+                        <div class="info_mail">
+                            <div class="nom_prenom">
+                                <input class="nom" type="text" placeholder="Nom">
+                                <input class="prenom" type="text" placeholder="Prenom">
+                            </div>
                         </div>
-                        <div class="mail">
-                            <input class="mail" type="email" placeholder="Adresse E-Mail">
+                        <div class="p_mail">
+                            <textarea class="p_mail" placeholder="Qu'avez-vous pensés du jeu ?"></textarea>
                         </div>
-                    </div>
-                    <div class="p_mail">
-                        <textarea class="p_mail" placeholder="Qu'avez-vous pensés du jeu ?"></textarea>
-                    </div>
-                    <div class="valide_form">
-                        <button class="valideChoix" onclick="formConfirme()">Valider</button>
-                    </div>
+                        <div class="valide_form">
+                            <input type="submit"  class="valideChoix" value="Valider">
+                        </div>
+                    </form>
                 </div>
             </div>
         </body>

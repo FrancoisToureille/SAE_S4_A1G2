@@ -9,6 +9,10 @@
     src: url('../OpenSans/OpenSans-Bold.ttf') format('truetype');
 }
 
+input{
+    font-size: 20px;
+}
+
 #specialite{
     display: none;
 }
@@ -31,7 +35,7 @@ header:hover {
     transition: box-shadow 0.3s ease-in;
 }
 
-h2{
+#titreChoix{
     display: flex;
     justify-content: center;
     padding: 10px;
@@ -41,6 +45,10 @@ h2{
     text-align: center;
     font-size: 60px;
     font-family: 'Open Sans Bold';
+}
+
+#titre_choix{
+    font-size: 30px;
 }
 
 a {
@@ -274,7 +282,11 @@ body{
     border-radius: 20px;
 }
 
-#lienButton{
+#p_choix{
+    font-size: 25px;
+}
+
+.lienButton{
     display: flex;
     justify-content: center;
     /* bleu */
@@ -364,6 +376,55 @@ body{
     border-radius: 20px;
 }
 
+#corps_intro{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#txtIntro{
+    margin: 2.5vw;
+    font-size: 25px;
+
+}
+
+#videoIntro{
+    width: 750px;
+    height: 450px;
+}
+
+#intro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2.5vw;
+}
+
+#introMobile{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5vw;
+}
+
+#videoIntroMobile{
+    align-self: center;
+    width: 365px;
+    height: 250px;
+
+}
+
+#txtIntroMobile{
+    text-align: center;
+}
+
+#boutonMode{
+    display: flex;
+    flex-direction: row;
+}
+
 /*responsive*/
 
 @media screen and (max-width: 750px){
@@ -434,8 +495,29 @@ body{
         left:8%
     
     }
+
+    .video{
+        display: flex;
+        justify-content: center;
+    }
     .videoPopUp{
         width: 100%;
+    }
+
+    #boutonMode{
+        justify-content: center;
+    }
+
+    #changeFont{
+        display: none;
+    }
+
+    #intro{
+        display: none;
+    }
+
+    #introMobile{
+        display: flex;
     }
 }
 

@@ -48,8 +48,10 @@ function start_classement($gagnants,$nb) {
         <head>
             <title>Objectif BUT - Classement</title>  
             <link rel="icon" type="image/x-icon" href="../images/Bachelor.ico" sizes="96x96" /> 
-            <script src="./javascript.js"></script>
+            <script src="../javascript.js"></script>
             <link rel="stylesheet" href="../css/styleClassement.css">
+            <!-- Ajout feuille de style générale -->
+            <link rel="stylesheet" href="../css/styleGeneral.css">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
             <meta name="description" content="Page de classement des résultats du jeu Objectif BUT">
@@ -61,7 +63,10 @@ function start_classement($gagnants,$nb) {
                 <div class="rubrique_menu"><h1 class="classement_titre">Classement</h1></div>
             </div>
         </header>
-        <a id="lienButton" style="color: white;" href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+        <div id="boutonMode">
+                <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+                <a class="lienButton" id="changeFont" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police agrandie <i id="changetheme"></i></a>
+        </div>
         <div class="menu">
             <table id="classement_tab" class="vignets">
                 <tr id="premiere_ligne">

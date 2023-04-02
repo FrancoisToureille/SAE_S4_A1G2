@@ -122,21 +122,18 @@ function startJeux($spe) { ?>
                             <th class="section3" id="case_RDC_2_10"></th>
                         </tr>
                         <tr>
-                            <th class="section1" id="case_RDC_1_1"></th>
-                            <th class="section1" id="case_RDC_1_2"></th>
-                            <th class="section1" id="case_RDC_1_3"></th>
-                            <th class="section2" id="case_RDC_1_4"></th>
-                            <th class="section2" id="case_RDC_1_5"></th>
-                            <th class="section2" id="case_RDC_1_6"></th>
-                            <th class="section2" id="case_RDC_1_7"></th>
-                            <th class="section3" id="case_RDC_1_8"></th>
-                            <th class="section3" id="case_RDC_1_9"></th>
-                            <th class="section3" id="case_RDC_1_10"></th>
+                            <th class="coulPlan section1" id="case_RDC_1_1"></th>
+                            <th class="coulPlan section1" id="case_RDC_1_2"></th>
+                            <th class="coulPlan section1" id="case_RDC_1_3"></th>
+                            <th class="coulPlan section2" id="case_RDC_1_4"></th>
+                            <th class="coulPlan section2" id="case_RDC_1_5"></th>
+                            <th class="coulPlan section2" id="case_RDC_1_6"></th>
+                            <th class="coulPlan section2" id="case_RDC_1_7"></th>
+                            <th class="coulPlan section3" id="case_RDC_1_8"></th>
+                            <th class="coulPlan section3" id="case_RDC_1_9"></th>
+                            <th class="coulPlan section3" id="case_RDC_1_10"></th>
                         </tr>
                     </table>
-                </div>
-                <div class="bot">
-
                 </div>
             </div>
 
@@ -158,6 +155,7 @@ function startJeux($spe) { ?>
                         <h1> BUT</h1>
                     </header>
                 </div>
+                <div id="changeCouleur"><a id="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a></div>
                 <div id="corps_question">
                     <div id="blockQuizz">
                         <div class="question">
@@ -305,16 +303,16 @@ function startJeux($spe) { ?>
                             <th class="section3" id="case_RDC_2_10Mobile"></th>
                         </tr>
                         <tr>
-                            <th class="section1" id="case_RDC_1_1Mobile"></th>
-                            <th class="section1" id="case_RDC_1_2Mobile"></th>
-                            <th class="section1" id="case_RDC_1_3Mobile"></th>
-                            <th class="section2" id="case_RDC_1_4Mobile"></th>
-                            <th class="section2" id="case_RDC_1_5Mobile"></th>
-                            <th class="section2" id="case_RDC_1_6Mobile"></th>
-                            <th class="section2" id="case_RDC_1_7Mobile"></th>
-                            <th class="section3" id="case_RDC_1_8Mobile"></th>
-                            <th class="section3" id="case_RDC_1_9Mobile"></th>
-                            <th class="section3" id="case_RDC_1_10Mobile"></th>
+                            <th class="coulPlan section1" id="case_RDC_1_1Mobile"></th>
+                            <th class="section1 coulPlan" id="case_RDC_1_2Mobile"></th>
+                            <th class="section1 coulPlan" id="case_RDC_1_3Mobile"></th>
+                            <th class="section2 coulPlan" id="case_RDC_1_4Mobile"></th>
+                            <th class="section2 coulPlan" id="case_RDC_1_5Mobile"></th>
+                            <th class="section2 coulPlan" id="case_RDC_1_6Mobile"></th>
+                            <th class="section2 coulPlan" id="case_RDC_1_7Mobile"></th>
+                            <th class="section3 coulPlan" id="case_RDC_1_8Mobile"></th>
+                            <th class="section3 coulPlan" id="case_RDC_1_9Mobile"></th>
+                            <th class="section3 coulPlan" id="case_RDC_1_10Mobile"></th>
                         </tr>
                     </table>
                 </div>
@@ -483,7 +481,7 @@ function questionsGeneralesDeuxPdo($user, $pass){
 <?php 
 function questionsSpeUnPdo($user, $pass,$THEME){
     $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
-    $stmt=$connexionBD->prepare("SELECT * FROM QUESTION WHERE THEME=? AND DIFFICULTE = 2 ORDER BY Rand() LIMIT 2;");
+    $stmt=$connexionBD->prepare("SELECT * FROM QUESTION WHERE THEME=? AND DIFFICULTE = 1 ORDER BY Rand() LIMIT 2;");
     $stmt->execute([$THEME]);
     $result = $stmt->fetchAll();
     if (!$stmt) {

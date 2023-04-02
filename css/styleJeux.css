@@ -207,6 +207,29 @@ button:active {
     border-radius: 0px 25px 0px 0px;
 }
 
+#lienButton{
+    display: flex;
+    justify-content: center;
+    /* bleu */
+    border-radius: 30px;
+    border: none;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 15px;
+    width: 100px;
+    height: 50px;
+    background-color: #00B7E9;
+    color: white;
+    font-family: 'Open Sans Bold';
+    transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
+    align-items: center;
+}
+
+#changeCouleur{
+    display: flex;
+    align-self: flex-end;
+}
+
 #titreBot{
     color:white;
     margin-top: 0.5em;

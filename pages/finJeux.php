@@ -8,15 +8,21 @@ function start_fin($score,$spe) { ?>
         <link rel="icon" type="image/x-icon" href="../images/Bachelor.ico" sizes="96x96" /> 
         <script src="../javascript.js"></script>
         <link rel="stylesheet" href="../css/styleFinJeux.css">
+        <link rel="stylesheet" href="../css/styleGeneral.css">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
         <meta name="description" content="Page de fin du jeu Objectif BUT dans laquelle le joueur connait son score et peut enregistrer ses données du jeu">
     </head>
     <body>
         <header>
-            <a href="../index.php"><h1 class="titre">Objectif </h1></a>
-            <a href="../index.php"><h1> BUT</h1></a>
+            <div id="titreFinJeux">
+                <a href="../index.php"><h1 class="titre">Objectif </h1></a>
+                <a href="../index.php"><h1> BUT</h1></a>
+            </div>
         </header>
+        <div id="boutonMode">
+            <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+        </div>
         <div class="planPage">
             <div class="vide">
             </div>

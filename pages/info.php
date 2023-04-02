@@ -22,8 +22,8 @@ function startInfo() { ?>
                 </div>
             </header>
             <div id="boutonMode">
-                <a id="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
-                <a id="lienButton" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police agrandie <i id="changetheme"></i></a>
+                <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+                <a class="lienButton" id="changeFont" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police agrandie <i id="changetheme"></i></a>
             </div>
             <div class="menu">
                 <div class="presentation vignets">
@@ -77,7 +77,7 @@ function startInfo() { ?>
             </div>
 
             <div class="menu2">
-                <div class="presentation">
+                <div class="presentation" id="presentationMobileHaut">
                     <h2>
                         Présentation du groupe
                     </h2>

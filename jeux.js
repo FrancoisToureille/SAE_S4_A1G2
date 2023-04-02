@@ -1,4 +1,11 @@
 /** Nos variables globales */
+var themeOther = "<link id='theme' rel='stylesheet' href='/css/styleJeuxSombre.css' />";
+var localStorage_theme = localStorage.getItem("themeCouleur");
+var localStorage_themeFont = localStorage.getItem("themePolice");
+
+window.addEventListener("load", switchTheme_avanced_init);
+var style = localStorage.getItem("themeCouleur");
+
 
 var listeQuestionsSpeUn;
 var listeQuestionsSpeDeux;
@@ -112,7 +119,9 @@ function coloriePlan(plan,coloriage,indiceRep) {
         let section = 'th[class="section' + indiceRep + '"]';
         plan.querySelectorAll(section).forEach(
             function (currentValue) {
-                currentValue.style.backgroundColor = 'green';
+                currentValue.style.backgroundColor = '#8d939e';
+                if(style == '/css/styleGeneral')
+                    currentValue.style.backgroundColor = 'green';
             }
         );
     }
@@ -120,7 +129,9 @@ function coloriePlan(plan,coloriage,indiceRep) {
         let section = 'th[class="section' + indiceRep + '"]';
             plan.querySelectorAll(section).forEach(
                 function (currentValue) {
-                currentValue.style.backgroundColor = 'red';
+                    currentValue.style.backgroundColor = '#2a2c30';
+                    if(style == '/css/styleGeneral')
+                        currentValue.style.backgroundColor = 'red';
                 }
             );
     }
@@ -720,5 +731,33 @@ function afficherCarte() {
     }
     else {
         document.getElementById('planMobile').style.display = 'none';
+    }
+}
+
+
+
+function switchTheme_avanced_onClick(e){
+    e.preventDefault();
+
+    if (localStorage_theme === undefined || localStorage_theme === "/css/styleGeneral"){
+        localStorage_theme = "/css/styleJeuxSombre";
+    } else {
+        localStorage_theme = "/css/styleGeneral";
+    }
+
+    localStorage.setItem("themeCouleur", localStorage_theme);
+
+    window.location.reload();
+}
+
+function switchTheme_avanced_init () {
+    var localStorage_theme = localStorage.getItem("themeCouleur");
+    var hhead = document.getElementsByTagName("head")[0];
+
+    if (localStorage_theme === "/css/styleJeuxSombre"){
+        hhead.innerHTML = hhead.innerHTML + themeOther;
+    }
+    else if(localStorage_theme === "/css/styleJeuxSombre"){
+        hhead.innerHTML = hhead.innerHTML + themeOther + themeOtherFont;
     }
 }

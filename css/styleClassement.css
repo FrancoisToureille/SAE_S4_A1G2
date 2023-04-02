@@ -124,6 +124,11 @@ button {
     
 }
 
+#boutonMode{
+    display: flex;
+    flex-direction: row;
+}
+
 .boutton_droite > a {
     margin: 5%;
 }
@@ -150,7 +155,7 @@ button:active {
     -o-animation: fadein 2s; /* Opera */
 }
 
-#lienButton{
+.lienButton{
     display: flex;
     justify-content: center;
     /* bleu */
@@ -230,6 +235,14 @@ button:active {
         display: flex;
         justify-content: center;
         font-size: 200%;
+    }
+
+    #boutonMode{
+        justify-content: center;
+    }
+
+    #changeFont{
+        display: none;
     }
 
 }

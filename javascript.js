@@ -1,6 +1,5 @@
 var listeTheme=["listeQuestionsWeb","listeQuestionsGenerales","listeQuestionsBD","listeQuestionsReseaux","listeQuestionsProgrammation"];
 
-
 /** fonction ouvrant l'overlay et affichant des paragraphes et titres selon le choix réalisé par l'utilisateur*/ 
 function setScreen(spe){
     /**Cache les vidéos tutorielles */
@@ -106,13 +105,6 @@ function closeScreen(){
     document.getElementById('popup_video').style.animation='slidePopUpOut 1s ease forwards';
     setTimeout(() => {document.getElementById('popup_video').style.display='none';
     document.getElementById('popup_video').style.animation='none'}, 1000);
-}
-
-/**fonction ouvrant l'overlay de la page formulaire */ 
-function formConfirme(){ 
-    alert("pas bon")
-    document.getElementById('confirmeForm').style.display='flex';
-    
 }
 
 /** fonction permettant à l'administrateur d'accèder au formulaire supprimer*/
@@ -248,5 +240,6 @@ function closeScreenIntro() {
     for (let element of document.getElementsByClassName("menu")){
         element.style.display="initial";
     }
+    document.getElementById('introMobile').style.display = "none";
     document.getElementById('intro').style.display="none";
 }
