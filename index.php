@@ -20,7 +20,7 @@ function start_index() {
                 <h1> BUT</h1>
             </header>
             <div id="boutonMode">
-                <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+                <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre </a>
             </div>
             <div class="menu">
                 <div class="presentation vignets">

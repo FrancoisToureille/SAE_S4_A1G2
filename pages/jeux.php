@@ -212,10 +212,9 @@ function startJeux($spe) { ?>
             
             <div class="affichage_droite">
                 <div class="entete">
-                   
                     <header>
-                        <h1 class="titre">Nom</h1>
-                        <h1>du jeu</h1>
+                        <h1 class="titre">Objectif</h1>
+                        <h1> BUT </h1>
                     </header>
                    
                 </div>
@@ -223,6 +222,8 @@ function startJeux($spe) { ?>
                         <h3 id ="numMobile">0</h3>
                         <img alt="logoCarte" id="carte" class="logoCarte" src="../images/carte.png" 
                             onclick = "afficherCarte()">
+                        <a id="lienButtonMobile" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre </a>
+
                 </div>
                 <div id = "planMobile">
                     <!--<a id = "lienFreepik" href="http://www.freepik.com">Designed by rawpixel.com / Freepik</a> -->

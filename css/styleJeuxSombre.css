@@ -29,6 +29,7 @@ header{
 
 button{
     background-color: #2a2c30;
+    color: black;
 }
 
 .couloir {
@@ -279,6 +280,277 @@ button{
 }
 
 #versFin {
+    background-color: #2a2c30;
+    color: white;
+}
+
+
+/* couleurs plan mobile */
+#soumettreMobile{
+    background-color: #2a2c30;
+    color: white;
+}
+
+#case_RDC_1_1Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_2Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_3Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_4Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_5Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_6Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_7Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_8Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_9Mobile {
+    border-color: white;
+}
+
+#case_RDC_1_10Mobile {
+    border-color: white;
+}
+
+/*2ere ligne (parties hautes des salles sous le couloir RDC) */
+#case_RDC_2_1Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_2Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_3Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_4Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_5Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_6Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_7Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_8Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_9Mobile {
+    border-color: white;
+}
+
+#case_RDC_2_10Mobile {
+    border-color: white;
+}
+
+/*3ere ligne (salles au dessus du couloir RDC) */
+#case_RDC_3_1Mobile {
+    border-color: white;
+}
+
+#case_RDC_3_2Mobile {
+    border-color: white;
+}
+
+#case_RDC_3_3Mobile {
+    border-color: white;
+}
+
+#case_RDC_3_4Mobile {
+    border-color: white;
+}
+
+#case_RDC_3_5Mobile {
+    border-color: white;
+}
+
+#case_RDC_3_6Mobile {
+    border-color: white;
+}
+
+/*Premier étage*/
+/*4e ligne (salles sous le couloir du 1er étage)*/
+#case_1E_1_1Mobile {
+    border-color: white;
+}
+
+#case_1E_1_2Mobile {
+    border-color: white;
+}
+
+#case_1E_1_3Mobile {
+    border-color: white;
+}
+
+#case_1E_1_4Mobile {
+    border-color: white;
+}
+
+#case_1E_1_5Mobile {
+    border-color: white;
+}
+
+#case_1E_1_6Mobile {
+    border-color: white;
+}
+
+#case_1E_1_7Mobile {
+    border-color: white;
+}
+
+#case_1E_1_8Mobile {
+    border-color: white;
+}
+
+#case_1E_1_9Mobile {
+    border-color: white;
+}
+
+/*5e ligne (salles au dessus du couloir du 1er étage)*/
+#case_1E_2_1Mobile {
+    border-color: white;
+}
+
+#case_1E_2_2Mobile {
+    border-color: white;
+}
+
+#case_1E_2_3Mobile {
+    border-color: white;
+}
+
+#case_1E_2_4Mobile {
+    border-color: white;
+}
+
+#case_1E_2_5Mobile {
+    border-color: white;
+}
+
+/*2e étage*/
+/*6e ligne (salles sous le couloir du 2e étage)*/
+#case_2E_1_1Mobile {
+    border-color: white;
+}
+
+#case_2E_1_2Mobile {
+    border-color: white;
+}
+
+#case_2E_1_3Mobile {
+    border-color: white;
+}
+
+#case_2E_1_4Mobile {
+    border-color: white;
+}
+
+#case_2E_1_5Mobile {
+    border-color: white;
+}
+
+#case_2E_1_6Mobile {
+    border-color: white;
+}
+
+#case_2E_1_7Mobile {
+    border-color: white;
+}
+
+#case_2E_1_8Mobile {
+    border-color: white;
+}
+
+#case_2E_1_9Mobile {
+    border-color: white;
+}
+
+#case_2E_1_10Mobile {
+    border-color: white;
+}
+
+/*7e ligne (salles au dessus du couloir du 2e étage)*/
+#case_2E_2_1Mobile {
+    border-color: white;
+}
+
+#case_2E_2_2Mobile {
+    border-color: white;
+}
+
+#case_2E_2_3Mobile {
+    border-color: white;
+}
+
+#case_2E_2_4Mobile {
+    border-color: white;
+}
+
+#case_2E_2_5Mobile {
+    border-color: white;
+}
+
+
+#versFinMobile {
+    background-color: #2a2c30;
+    color: white;
+}
+
+#barreNavBotMobile {
+    background: linear-gradient(to bottom, #2a2c30, gray);
+}
+
+#numMobile {
+    color: white;
+}
+
+#questionPoseeMobile {
+    color: white;
+}
+
+
+#chatBotMobile{
+    background: linear-gradient(to bottom, white ,#2a2c30);
+}
+
+#lienButtonMobile{
+    background-color: #2a2c30;
+}
+
+#barreNavBotMobile {
+    background: linear-gradient(to bottom, #2a2c30, gray);
+}
+
+#soumettreMobile {
     background-color: #2a2c30;
     color: white;
 }
