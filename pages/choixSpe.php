@@ -20,7 +20,7 @@ function start_choix_spe() { ?>
         </header>
        
         <div id="boutonMode">
-            <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
+            <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre </a>
         </div>
 
         <div id = "intro">
@@ -34,7 +34,7 @@ function start_choix_spe() { ?>
                         <p>Bonne chance, amusez-vous bien et peut être à bientôt dans notre BUT Informatique !</p>     
                 </div>
             </div>
-            <button class="valideChoix" id="valideChoixCol" onclick="closeScreenIntro()">OK</button>
+            <button class="valideChoix" onclick="closeScreenIntro()">OK</button>
         </div>
 
         <div id = "introMobile">
@@ -47,7 +47,7 @@ function start_choix_spe() { ?>
                             dans votre quête et d'en apprendre toujours plus.</p>
                     <p>Bonne chance, amusez-vous bien et peut être à bientôt dans notre BUT Informatique !</p></div>
             </div>
-            <button class="valideChoix" id="valideChoixCol" onclick="closeScreenIntro()">OK</button>
+            <button class="valideChoix" onclick="closeScreenIntro()">OK</button>
         </div>
 
         <div class="menu">

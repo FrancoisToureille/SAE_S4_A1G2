@@ -22,8 +22,8 @@ function startContact() { ?>
                 </div>
             </header>
             <div id="boutonMode">
-                <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a>
-                <a class="lienButton" id="changeFont" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police agrandie <i id="changetheme"></i></a>
+                <a class="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre </a>
+                <a class="lienButton" id="changeFont" style="color: white; width: 150px;" href="#" onClick="switchThemeFont_avanced_onClick(event)"> Mode taille police agrandie </a>
             </div>
             <div class="menu">
                 <div class="presentation_form vignets">

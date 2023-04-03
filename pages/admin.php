@@ -10,13 +10,13 @@ function startCoAdmin() { ?>
             <script src="../javascript.js"></script>
             <link rel="stylesheet" href="../css/styleContact.css">
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
             <meta name="description" content="Connexion pour l'administrateur du jeu Objectif BUT">
         </head>
         <body>
             <header>
                 <div class="entete_info">
-                    <div class="rubrique_menu"><a href="../index.php"><img id="return" src="../images/maison.png"></a></div>
+                    <div class="rubrique_menu"><a href="../index.php"><img id="return" alt="retour" src="../images/maison.png"></a></div>
                     <div class="rubrique_menu"><h1 class="contact_titre">Se connecter</h1></div>
                 </div>
             </header>

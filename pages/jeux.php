@@ -155,7 +155,7 @@ function startJeux($spe) { ?>
                         <h1> BUT</h1>
                     </header>
                 </div>
-                <div id="changeCouleur"><a id="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre <i id="changetheme"></i></a></div>
+                <div id="changeCouleur"><a id="lienButton" style="color: white; " href="#" onClick="switchTheme_avanced_onClick(event)"> Mode sombre </a></div>
                 <div id="corps_question">
                     <div id="blockQuizz">
                         <div class="question">
