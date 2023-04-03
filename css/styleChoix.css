@@ -1,0 +1,536 @@
+@font-face{
+    font-family: 'Open Sans Regular';
+    src: url('../OpenSans/OpenSans-Regular.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Open Sans Bold';
+    src: url('../OpenSans/OpenSans-Bold.ttf') format('truetype');
+}
+
+input{
+    font-size: 20px;
+}
+
+#specialite{
+    display: none;
+}
+
+#speChoisie{
+    display: none;
+}
+
+h1{
+    padding: 5px;
+    font-family: 'Open Sans Bold';
+    font-size: 25px;
+}
+header {
+    transition: box-shadow 0.3s ease-out;
+
+}
+header:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    transition: box-shadow 0.3s ease-in;
+}
+
+#titreChoix{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 20px;
+    padding-left: 15%;
+    padding-right: 15%;
+    text-align: center;
+    font-size: 60px;
+    font-family: 'Open Sans Bold';
+}
+
+#titre_choix{
+    font-size: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    margin-right: 80%;
+    font-family: 'Open Sans';
+    border-radius: 0px 0px 30px 0px;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans Regular';
+}
+
+.menu{
+    display: flex;
+    flex-direction: column;
+}
+
+.presentation{
+    margin: 40px;
+    padding: 20px;
+    height: fit-content;
+    margin-top: 10%;
+    font-family: 'Open Sans Regular';
+}
+
+.bouton{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    justify-content: space-around;
+
+}
+
+.ensembleBouton{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    padding: 20px;
+    justify-content: space-around;
+}
+
+.bouton > button{
+    margin: 20px;
+    margin-bottom: 40px;
+    padding: 20px;
+}
+
+#popup{
+    position:absolute;
+    top:20%;
+    left:17%;
+    z-index:2;
+    display:none;
+    width:65%;
+    height:60%;
+    overflow:auto;
+    border-style:solid;
+    border-color: black;
+    border-width:3px;
+    animation: slidePopUpIn 1s ease forwards/*, slidePopUpOut 5s ease forwards*/;
+    border-radius: 20px;
+}
+
+@keyframes slidePopUpIn{
+    0%{opacity: 0;}
+    70%{ transform: translateX(15%);}
+    100%{ transform: translateX(3%); opacity: 1;}
+}
+
+@keyframes slidePopUpOut{
+    10%{ transform: translateX(-10%);}
+    100%{ transform: translateX(100%); opacity: 0; display: none;}
+}
+
+.affiche{
+    display: flex;
+    flex-direction: column;
+}
+
+.enteteChoix{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-width: 3px;
+}
+
+.enteteChoix > h3{
+    display: flex;
+    font-size: 25px;
+    justify-content: left;
+    padding-top: 10px;
+    margin-left: 15px;
+}
+
+.bouton_popup{
+    display: flex;
+    border:none;
+    background-color:#f0f0f0;
+    color: black;
+    width: 50px;
+    height: 50px;
+    border-radius: 0px;
+    font-family: 'Open Sans Regular';
+    justify-content: center;
+}
+
+.bouton_popup:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.bouton_popup:active {
+    background-color: gray;
+    box-shadow: 0 5px rgb(102, 102, 102);
+    transform: translateY(4px);
+}
+
+.valideChoix{
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0px;
+    color: black;
+    width: 200px;
+    height: 35px;
+    font-size: 20px;
+    font-family: 'Open Sans Regular';
+    margin: 5%;
+    border-radius: 20px;
+}
+
+#continueChoix{
+    display: flex;
+    justify-content: center;
+    border-style: solid;
+    border-color: black;
+    border-radius: 0px;
+    color: black;
+    width: 200px;
+    height: 35px;
+    font-size: 20px;
+    font-family: 'Open Sans Regular';
+    margin: 5%;
+    border-radius: 20px;
+}
+
+.corpsChoix{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.corpsChoix > p {
+    margin: 5%;
+    font-size: 20px;
+}
+
+button {
+    /* bleu */
+    border-radius: 30px;
+    border: none;
+    /*padding: 30px 50px;*/
+    text-align: center;
+    text-decoration: none;
+    font-size: 35px;
+    width: 350px;
+    height: 100px;
+    display: block;
+    text-align: center;
+    font-family: 'Open Sans Bold';
+}
+
+.boutton_droite > a {
+    margin: 5%;
+}
+
+a{
+    text-decoration: none;
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    transition: box-shadow 0.3s ease-in;
+
+}
+
+.lien{
+    transition: width 0.5s, height 0.5s;
+}
+
+.lien:hover{
+    width: 360px;
+    height: 110px;
+    transition: width 0.5s, height 10.5s;
+}
+
+body{
+    background-size: cover;
+    font-family: 'Open Sans';
+}
+
+#popup_video{
+    position:absolute;
+    top:20%;
+    left:17%;
+    z-index:2;
+    display:none;
+    width:65%;
+    height:60%;
+    overflow:auto;
+    border-style:solid;
+    border-color: black;
+    border-width:3px;
+    background-color:#f0f0f0;
+    border-radius: 20px;
+}
+
+#p_choix{
+    font-size: 25px;
+}
+
+.lienButton{
+    display: flex;
+    justify-content: center;
+    /* bleu */
+    border-radius: 30px;
+    border: none;
+    margin: 0.5vw;
+    text-align: center;
+    font-size: 15px;
+    width: 100px;
+    height: 50px;
+    font-family: 'Open Sans Bold';
+    transition: box-shadow 0.3s ease-in, width 0.5s, height 0.5s;
+    align-items: center;
+}
+
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* sur Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* sur Safari et Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* sur Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.transi {
+    animation-duration: 2s;
+    animation-name: fadein;
+}
+
+.transi2{
+    animation-duration: 3s;
+    animation-name: fadein;
+}
+
+.transi3{
+    animation-duration: 4s;
+    animation-name: fadein;
+}
+
+#PopupProg{
+    display: none;
+}
+
+#PopupRes{
+    display: none;
+}
+
+#PopupSys{
+    display: none;
+}
+
+#PopupBd{
+    display: none;
+}
+
+#PopupWeb{
+    display: none;
+}
+
+.videoPopUp{
+    width: 560px;
+    height: 315px;
+    border-radius: 20px;
+}
+
+#corps_intro{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#txtIntro{
+    margin: 2.5vw;
+    font-size: 25px;
+
+}
+
+#videoIntro{
+    width: 750px;
+    height: 450px;
+}
+
+#intro{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2.5vw;
+}
+
+#introMobile{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5vw;
+}
+
+#videoIntroMobile{
+    align-self: center;
+    width: 365px;
+    height: 250px;
+
+}
+
+#txtIntroMobile{
+    text-align: center;
+}
+
+#boutonMode{
+    display: flex;
+    flex-direction: row;
+}
+
+/*responsive*/
+
+@media screen and (max-width: 750px){
+    .ensembleBouton {
+        display: none
+    }
+
+    #titreChoix {
+        font-size: 25px;
+    }
+    
+    button {
+        background-color: #00B7E9;
+        /* bleu */
+        border-radius: 30px;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        font-size: 20px;
+        width: 200px;
+        height: 100px;
+        display: block;
+        font-family: 'Open Sans Bold';
+        
+    }
+
+    
+    .ensembleBouton2{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .bouton{
+        flex-direction: row;
+        margin: 0px;
+        justify-content: center;
+    }
+    header{
+        display: flex;
+        flex-direction: row;
+        margin-right: 0%;
+        border-radius: 0px 0px 0px 0px;
+    }
+    h2{
+        font-size: 120%;
+    }
+    .bouton > button {
+        margin: 20px;
+        margin-bottom: 40px;
+        padding: 0px;
+        font-size: 80%;
+        width: 80%;
+    }
+    #popup {
+        left: 5%;
+        width: 80%;
+    }
+    .corpsChoix > p {
+        font-size: 120%;
+    }
+    #jeux {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    #valideChoix{
+        width: 100%;
+    }
+    #popup_video{
+        width: 80%;
+        left:8%
+    
+    }
+
+    .video{
+        display: flex;
+        justify-content: center;
+    }
+    .videoPopUp{
+        width: 100%;
+    }
+
+    #boutonMode{
+        justify-content: center;
+    }
+
+    #changeFont{
+        display: none;
+    }
+
+    #intro{
+        display: none;
+    }
+
+    #introMobile{
+        display: flex;
+    }
+}
+
+.menu{
+    display: none;
+}
+@media screen and (min-width: 751px){ 
+    .ensembleBouton2{
+        display: none;
+    }
+}

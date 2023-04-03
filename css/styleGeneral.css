@@ -1,0 +1,61 @@
+body{
+    background-color: white;
+}
+
+header{
+    background-color: #0071B9;
+    color: black;
+}
+
+.presentation{
+    background-color: lightgrey;
+    color: black;
+}
+
+.titre{
+    color: #FBBA00;
+}
+
+button{
+    background-color: #00B7E9;
+}
+
+.lien{
+    background-color: #00B7E9;
+    color: white;
+}
+
+.lienButton{
+    background-color: #00B7E9;
+    color: white;
+}
+
+.lien:active{
+    background-color: #3e638e;
+}
+
+#popup{
+    background-color:#f0f0f0;
+}
+
+.bouton_popup{
+    background-color: #f0f0f0;
+}
+
+.valideChoix{
+    background-color: lightgray;
+}
+
+#continueChoix{
+    background-color: lightgray;
+}
+
+#popup_video{
+    border-color: black;
+    background-color:#f0f0f0;
+}
+
+.presentation_form{
+    background-color: lightgrey;
+    color: black;
+}
