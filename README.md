@@ -1,10 +1,10 @@
 # SAE_S4_A1G2
 
-Ceci est la branche utilisé pour la transition du site en MVC  
+Ceci est la branche utilisée pour la transition du site en MVC  
 
-La derniere version du site en MVC n'est malheureusement pas entierement fonctionnel et ne comprends pas les ameliorations apporté sur le site lors du S4.  
-Pages fonctionnel en MVC :   
--Page d'acceuil  
+La derniere version du site en MVC n'est malheureusement pas entierement fonctionnelle et ne comprends pas les améliorations apportées sur le site lors du S4.  
+Pages fonctionnelles en MVC :   
+-Page d'accueil  
 -Page classement  
 -Page info  
 -Page contact  
