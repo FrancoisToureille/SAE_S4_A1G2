@@ -2,6 +2,8 @@
 function mauvaisOuBon($booleen) {
     if($booleen!=null && strlen($booleen)==7) {
         for($i = 0; $i<7; $i=$i+2) {
+            //test de la validité des réponses(booléen)
+            assert($booleen[$i]==0 || $booleen[$i]==1);
             if($booleen[$i]==1) {
                 echo "bon ";
             }
@@ -155,6 +157,8 @@ function resultatAdmin() { ?>
 <?php
 
 function boutonTheme($theme,$numeroQuestion){
+    // test si le theme est valide
+    assert($theme == "General" || $theme == "BD" || $theme == "Programmation" || $theme == "Reseaux" || $theme == "Web" || $theme == "Systeme");
     if($theme == "Web") {?>
         <button class="buttonAdmin" style="margin:20px;" onclick="afficheQuestionsTest('Web',<?php echo $numeroQuestion;?>)"> question <?php echo $numeroQuestion; ?></button>
     <?php
@@ -180,9 +184,8 @@ function boutonTheme($theme,$numeroQuestion){
 
 
 function donneListe($THEME,$user,$pass){
-
+    //on appelle le pdo
     $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
- //on appelle le pdo
 
     // On ecris la requete avec les paramettres de la fonction
     $stmt=$connexionBD->prepare("SELECT Q.ID_QUESTION, Q.LIBELLE , Q.DIFFICULTE, Q.INDICE, Q.EXPLICATION,
@@ -193,9 +196,11 @@ function donneListe($THEME,$user,$pass){
 
     $stmt->execute([$THEME]); 
     $result = $stmt->fetchAll();
+    // vérification que la requete a bien été effectuée et qu'il y a des résultats
+    assert($result != null);
     for($i = 0; $i<sizeof($result); $i = $i + 1) {
         $numQuestion = "question" .$THEME .($i+1);
-
+        // on affiche les boutons de questions
         boutonTheme($THEME,($i+1));
         ?>
             <div class = "question" id=<?php echo $numQuestion;?> style="display:none">
@@ -283,6 +288,8 @@ function trouveMotDePassePdo($user, $pass) {
         $stmt=$connexionBD->prepare("SELECT MDP FROM MOTDEPASSE WHERE ID_MDP=1");
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // vérification que la requete a bien été effectuée et qu'il y a bien un administrateur
+        assert($result != null);
         return $result["MDP"];
     } catch(PDOException $erreur) {
         // Gestion de l'exception
@@ -311,6 +318,8 @@ function AjouteQuestionPdo($user, $pass, $Libelle, $Theme, $Difficulte, $Indice,
         $queryIdQuestion->execute([$Libelle]);
         $IdQuestion = $queryIdQuestion->fetch(PDO::FETCH_ASSOC);
         $IdQuestion = $IdQuestion["ID_QUESTION"];
+        // on doit avoir un id de question
+        assert($IdQuestion != null);
 
         /* On ajoute les réponses à la question insérée, 4 réponses possibles */
         AjouteReponsePdo($IdQuestion, $Rep1, $Bon1, 1, $connexionBD);
@@ -341,7 +350,9 @@ function ModifieQuestionPdo($connexionBD, $Id, $Libelle, $Difficulte, $Indice, $
 {    
     try {
         $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+        // on doit avoir des arguments non nuls
+        assert($Id != null && $Libelle != null && $Difficulte != null && $Indice != null
+         && $Explication != null && $Rep1 != null && $Rep2 != null && $Rep3 != null && $Rep4 != null);
         $queryQuestion = $connexionBD->prepare('UPDATE `QUESTION` SET `LIBELLE`=:Libelle, `DIFFICULTE`=:Difficulte, `INDICE`=:Indice, `EXPLICATION`=:Explication WHERE ID_QUESTION=:Id;');
         $queryQuestion->execute(array(':Id' => $Id, ':Libelle' => $Libelle, ':Difficulte' => $Difficulte, ':Indice' => $Indice, ':Explication' => $Explication));
         $queryQuestion->closeCursor();
@@ -360,6 +371,8 @@ function ModifieQuestionPdo($connexionBD, $Id, $Libelle, $Difficulte, $Indice, $
 function ModifieReponsePdo($connexionBD, $IdQuestion, $Rep, $BonRep, $ligne)
 {
     try {
+        // on doit avoir un ordre pour chaque question de 1 à 4
+        assert($ligne >= 1 && $ligne <= 4);
         $queryReponse = $connexionBD->prepare('UPDATE `REPONSE` SET `BONNE_REP`= ?,`LIBELLE`= ? WHERE ID_QUESTION = ? AND ORDRE = ?;');
         $queryReponse->execute([$BonRep, $Rep, $IdQuestion, $ligne]);
         $queryReponse->closeCursor();
@@ -431,6 +444,10 @@ function VerifArgumentsPdo($user,$pass,$Id, $Libelle, $Difficulte, $Indice, $Exp
     if($Bon4 != 0 && $Bon4 != 1)
         $Bon4 = $results[3]['BONNE_REP'];
 
+    // on doit avoir des arguments remplis à ce stade
+    assert($Libelle != null && $Difficulte != null && $Indice != null && $Explication != null && $Rep1 != null
+     && $Rep2 != null && $Rep3 != null && $Rep4 != null);
+
     ModifieQuestionPdo($connexionBD,$Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4);
 }
 
@@ -438,6 +455,8 @@ function VerifArgumentsPdo($user,$pass,$Id, $Libelle, $Difficulte, $Indice, $Exp
 /* Fonction supprimant la question et les réponses associées à l'identifiant de la question */
 function supprimeQuestionPdo($user,$pass,$ID_QUESTION) {
     try {
+        // on doit avoir un identifiant de question non nul
+        assert($ID_QUESTION != null);
         $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
         $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

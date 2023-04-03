@@ -5,7 +5,10 @@ function AjouteGagnant($user, $pass, $pseudo, $score, $spe)
     try {
         $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
         $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+        // on vérifie que la spécialité est bien une spécialité existante
+        assert($spe == "bd" || $spe == "programmation" || $spe == "reseaux" || $spe == "web" || $spe == "systeme");
+        // on vérifie que le score est bien un score possible
+        assert($score >= 0 && $score <= 16);
         $queryReponse = $connexionBD->prepare('INSERT Into GAGNANT(NOM_GAGNANT, SCORE, SPECIALITE) Values (?, ?, ?);');
         $queryReponse->execute([$pseudo, $score, $spe]);
         $queryReponse->closeCursor();
@@ -102,6 +105,8 @@ $gagnants = recupGagnant("286642_uti1ls", "SelectBDUser.");
 if($gagnants == 0){
     AjouteGagnant("286642", "ButInformatiqueBD", "test", 0, "programmation");
 }
+// le classement n'est jamais vide
+assert ($gagnants != 0);
 $nb= sizeof($gagnants)/3;
 start_classement($gagnants, $nb);
 ?>

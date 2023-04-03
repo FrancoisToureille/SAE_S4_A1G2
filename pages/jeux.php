@@ -1,6 +1,7 @@
 <?php
 if(isset($_POST['spe'])){
     $spe = $_POST["spe"];
+    assert($spe == "programmation" || $spe == "reseaux" || $spe == "web" || $spe == "bd" || $spe == "systeme");
 }
 /*si la spécialité n'a pas été choisie(url direct vers jeux.php -> programmation comme spécialité par défaut)*/
 else{
@@ -387,9 +388,12 @@ function reponsesPdo($connexionBD, $id,$i){
         $stmt=$connexionBD->prepare("SELECT LIBELLE,BONNE_REP From REPONSE Where ID_QUESTION = ?");
         $stmt->execute([$id]); 
         $result = $stmt->fetchAll();
-        ?>
+        //test de valeur
+        assert($result[$j]["LIBELLE"]!=null); ?>
         <p id=<?php echo "rep" .$i .$j;?>> <?php echo $result[$j]["LIBELLE"];?></p>
         <p id=<?php echo "bonOuMauvais" .$i .$j ?>><?php 
+        //test de valeur
+        assert($result[$j]["BONNE_REP"]==1 || $result[$j]["BONNE_REP"]==0);
         if($result[$j]["BONNE_REP"]==1){
             echo " bon";
         }
@@ -422,16 +426,19 @@ function questionsGeneralesUnPdo($user, $pass){
             $i = 0;
             while ($i<3)
             {
-                $numQuestion = "question" . $i;   
+                $numQuestion = "question" . $i;
                 ?>
+
+                    
                     <div class = "questionRecuperee" id = <?php echo $numQuestion;?>>
-                
+                        
                         <p id = <?php echo "Libelle" . $i;?>> <?php echo $result[$i]["LIBELLE"];?> </p>
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i]["INDICE"];?> </p>
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i]["EXPLICATION"];?> </p>
 
                         <?php
-                            //Reponse et bonneReponse
+                            //Reponses liées à l'id de la question
+                            assert($result[$i]["ID_QUESTION"] != null);
                             reponsesPdo($connexionBD, $result[$i]["ID_QUESTION"],$i);
                         ?>
                     </div>
@@ -466,7 +473,8 @@ function questionsGeneralesDeuxPdo($user, $pass){
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i-5]["INDICE"];?> </p>
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-5]["EXPLICATION"];?> </p>
                         <?php
-                            //Reponse et bonneReponse
+                            //Reponses liées à l'id de la question
+                            assert($result[$i-5]["ID_QUESTION"] != null);
                             reponsesPdo($connexionBD, $result[$i-5]["ID_QUESTION"],$i);
                         ?>
                     </div>
@@ -501,7 +509,8 @@ function questionsSpeUnPdo($user, $pass,$THEME){
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i-3]["INDICE"];?> </p>
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-3]["EXPLICATION"];?> </p>
                         <?php
-                            //Reponse et bonneReponse
+                            //Reponses liées à l'id de la question
+                            assert($result[$i-3]["ID_QUESTION"] != null);
                             reponsesPdo($connexionBD, $result[$i-3]["ID_QUESTION"],$i);
                         ?>
                     </div>
@@ -536,7 +545,8 @@ function questionsSpeDeuxPdo($user, $pass,$THEME){
                         <p id = <?php echo "Indice" .$i?>> <?php echo $result[$i-8]["INDICE"];?> </p>
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-8]["EXPLICATION"];?> </p>
                         <?php
-                            //Reponse et bonneReponse
+                            //Reponses liées à l'id de la question
+                            assert($result[$i-8]["ID_QUESTION"] != null);
                             reponsesPdo($connexionBD, $result[$i-8]["ID_QUESTION"],$i);
                         ?>
                     </div>
