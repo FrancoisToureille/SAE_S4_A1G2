@@ -431,6 +431,11 @@ body{
     .ensembleBouton {
         display: none
     }
+
+    #titreChoix {
+        font-size: 25px;
+    }
+    
     button {
         background-color: #00B7E9;
         /* bleu */

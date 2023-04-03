@@ -27,7 +27,7 @@ function start_index() {
                     <h2>
                         Présentation du BUT
                     </h2>
-                    <div class="video"><iframe class="videoAnim videoCSS" src="https://www.youtube.com/embed/3HMh95gDKDI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <div class="video"><iframe class="videoAnim videoCSS" src="https://www.youtube.com/embed/YTPA91iKvG0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                 </div>
                 <div class="boutton_droite vignets">
                     <a href="./pages/choixSpe.php"><div class="lien transi">Jouer</div></a>
@@ -41,7 +41,7 @@ function start_index() {
                     <h2>
                         Présentation du BUT
                     </h2>
-                    <div class="video"><iframe class="videoAnim videoCSSResp" src="https://www.youtube.com/embed/3HMh95gDKDI" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <div class="video"><iframe class="videoAnim videoCSSResp" src="https://www.youtube.com/embed/YTPA91iKvG0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                 </div>
                 <div class="boutton_droite">
                     <a href="./pages/choixSpe.php"><div class="lien">Jouer</div></a>

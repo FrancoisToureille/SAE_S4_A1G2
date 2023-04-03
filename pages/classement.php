@@ -50,7 +50,6 @@ function start_classement($gagnants,$nb) {
             <link rel="icon" type="image/x-icon" href="../images/Bachelor.ico" sizes="96x96" /> 
             <script src="../javascript.js"></script>
             <link rel="stylesheet" href="../css/styleClassement.css">
-            <!-- Ajout feuille de style générale -->
             <link rel="stylesheet" href="../css/styleGeneral.css">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -98,11 +97,11 @@ if (isset($_POST['pseudo'])) {
     $spe = $_POST["spe"];
     AjouteGagnant("286642", "ButInformatiqueBD", $pseudo, $score, $spe);
 }
-/*si il n'y a aucun gagnant, on évite l'erreur en gardant toujours au moins un gagnant*/
-if(recupGagnant("286642", "ButInformatiqueBD") == 0){
+/*s'il n'y a aucun gagnant, on évite l'erreur en gardant toujours au moins un gagnant*/
+$gagnants = recupGagnant("286642_uti1ls", "SelectBDUser.");
+if($gagnants == 0){
     AjouteGagnant("286642", "ButInformatiqueBD", "test", 0, "programmation");
 }
-$gagnants = recupGagnant("286642", "ButInformatiqueBD");
 $nb= sizeof($gagnants)/3;
 start_classement($gagnants, $nb);
 ?>

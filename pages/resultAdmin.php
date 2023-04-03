@@ -123,23 +123,23 @@ function resultatAdmin() { ?>
                 </form>
              
                 <div id="listeQuestionsGenerales" style="display:none">
-                <?php donneListe("General","286642","ButInformatiqueBD");?>
+                <?php donneListe("General","286642_uti1ls", "SelectBDUser.");?>
                 </div>
                     
                 <div id="listeQuestionsWeb" style="display:none">
-                <?php donneListe("Web","286642","ButInformatiqueBD");?>
+                <?php donneListe("Web","286642_uti1ls", "SelectBDUser.");?>
                 </div>
 
                 <div id="listeQuestionsBD" style="display:none">
-                <?php donneListe("BD","286642","ButInformatiqueBD");?>
+                <?php donneListe("BD","286642_uti1ls", "SelectBDUser.");?>
                 </div>
                 
                 <div id="listeQuestionsReseaux" style="display:none">
-                <?php donneListe("Reseaux","286642","ButInformatiqueBD");?>
+                <?php donneListe("Reseaux","286642_uti1ls", "SelectBDUser.");?>
                 </div> 
 
                 <div id="listeQuestionsProgrammation" style="display:none">
-                <?php donneListe("Programmation","286642","ButInformatiqueBD");?>
+                <?php donneListe("Programmation","286642_uti1ls", "SelectBDUser.");?>
                 </div>
 
             </div>
@@ -277,18 +277,21 @@ function donneListe($THEME,$user,$pass){
 
 <?php 
 /* fonction récupérant le mot de passe de l'administrateur dans la base de données: version pdo */
-function trouveMotDePasseDeux($user, $pass) {
-    $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
-    $stmt=$connexionBD->prepare("SELECT MDP FROM MOTDEPASSE WHERE ID_MDP=1");
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result["MDP"];
+function trouveMotDePassePdo($user, $pass) {
+    try {
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $stmt=$connexionBD->prepare("SELECT MDP FROM MOTDEPASSE WHERE ID_MDP=1");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result["MDP"];
+    } catch(PDOException $erreur) {
+        // Gestion de l'exception
+        echo "Erreur lors de la connexion à la base de données : " . $erreur->getMessage();
+    }
 }
 
 
 /** Ajout */
-
-
 /* fonction permettant à l'administrateur d'ajouter une question en PDO */
 function AjouteQuestionPdo($user, $pass, $Libelle, $Theme, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
 {
@@ -316,7 +319,6 @@ function AjouteQuestionPdo($user, $pass, $Libelle, $Theme, $Difficulte, $Indice,
         AjouteReponsePdo($IdQuestion, $Rep3, $Bon3, 3, $connexionBD);
         AjouteReponsePdo($IdQuestion, $Rep4, $Bon4, 4, $connexionBD);
 
-        $connexionBD = null;
     } catch (PDOException $erreur) {
         die('Erreur relevée : ' . $erreur->getMessage());
     }
@@ -336,10 +338,9 @@ function AjouteReponsePdo($IdQuestion, $Rep, $BonRep, $Ordre, $connexionBD)
 /** modification */
 
 /* fonction permettant à l'administrateur de modifier une question */
-function ModifieQuestionPdo($user, $pass, $Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
+function ModifieQuestionPdo($connexionBD, $Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
 {    
     try {
-        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
         $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $queryQuestion = $connexionBD->prepare('UPDATE `QUESTION` SET `LIBELLE`=:Libelle, `DIFFICULTE`=:Difficulte, `INDICE`=:Indice, `EXPLICATION`=:Explication WHERE ID_QUESTION=:Id;');
@@ -347,22 +348,19 @@ function ModifieQuestionPdo($user, $pass, $Id, $Libelle, $Difficulte, $Indice, $
         $queryQuestion->closeCursor();
         
 
-        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep1, $Bon1, 1);
-        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep2, $Bon2, 2);
-        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep3, $Bon3, 3);
-        ModifieReponsePdo("286642","ButInformatiqueBD",$Id, $Rep4, $Bon4, 4);
-
-        $connexionBD = null;
+        ModifieReponsePdo($connexionBD, $Id, $Rep1, $Bon1, 1);
+        ModifieReponsePdo($connexionBD, $Id, $Rep2, $Bon2, 2);
+        ModifieReponsePdo($connexionBD, $Id, $Rep3, $Bon3, 3);
+        ModifieReponsePdo($connexionBD, $Id, $Rep4, $Bon4, 4);
     } catch (PDOException $erreur) {
         echo "Erreur relevée : " . $erreur->getMessage();
     }
 }
 
 /* fonction permettant à l'administrateur de modifier les réponses d'une question */
-function ModifieReponsePdo($user,$pass, $IdQuestion, $Rep, $BonRep, $ligne)
+function ModifieReponsePdo($connexionBD, $IdQuestion, $Rep, $BonRep, $ligne)
 {
     try {
-        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
         $queryReponse = $connexionBD->prepare('UPDATE `REPONSE` SET `BONNE_REP`= ?,`LIBELLE`= ? WHERE ID_QUESTION = ? AND ORDRE = ?;');
         $queryReponse->execute([$BonRep, $Rep, $IdQuestion, $ligne]);
         $queryReponse->closeCursor();
@@ -378,8 +376,8 @@ function VerifArgumentsPdo($user,$pass,$Id, $Libelle, $Difficulte, $Indice, $Exp
  $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
 {
     try {
-        $pdo = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
+        $connexionBD->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } 
     catch (PDOException $erreur) {
         throw new PDOException($erreur->getMessage());
@@ -389,7 +387,7 @@ function VerifArgumentsPdo($user,$pass,$Id, $Libelle, $Difficulte, $Indice, $Exp
         die('L\'Id de la question doit être renseigné obligatoirement');
     }
 
-    $query = $pdo->prepare('SELECT LIBELLE, DIFFICULTE, INDICE, EXPLICATION FROM QUESTION WHERE ID_QUESTION = ?');
+    $query = $connexionBD->prepare('SELECT LIBELLE, DIFFICULTE, INDICE, EXPLICATION FROM QUESTION WHERE ID_QUESTION = ?');
     $query->execute([$Id]);
     $result = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -408,7 +406,7 @@ function VerifArgumentsPdo($user,$pass,$Id, $Libelle, $Difficulte, $Indice, $Exp
         $Explication = $result['EXPLICATION'];
 
     /* récupération des 4 réponses */
-    $query = $pdo->prepare('SELECT LIBELLE, BONNE_REP FROM REPONSE WHERE ID_QUESTION = ? ORDER BY ID_REP ASC LIMIT 4');
+    $query = $connexionBD->prepare('SELECT LIBELLE, BONNE_REP FROM REPONSE WHERE ID_QUESTION = ? ORDER BY ID_REP ASC LIMIT 4');
     $query->execute([$Id]);
     $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -434,11 +432,11 @@ function VerifArgumentsPdo($user,$pass,$Id, $Libelle, $Difficulte, $Indice, $Exp
     if($Bon4 != 0 && $Bon4 != 1)
         $Bon4 = $results[3]['BONNE_REP'];
 
-    ModifieQuestionPdo("286642","ButInformatiqueBD",$Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4);
+    ModifieQuestionPdo($connexionBD,$Id, $Libelle, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4);
 }
 
-/** Fonctions de suppression*/
-/* il faut avoir posté le formulaire de suppression, même avec des variables vides pour éviter d'arriver sur cette page sans être administrateur*/
+/** Fonction de suppression*/
+/* Fonction supprimant la question et les réponses associées à l'identifiant de la question */
 function supprimeQuestionPdo($user,$pass,$ID_QUESTION) {
     try {
         $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
@@ -510,7 +508,7 @@ function startConnexionAdmin() {
     $Identifiant = $_POST['id'];
     $motdepasse = $_POST['motDePasse'];
     if($action == 'valider') { 
-        if($Identifiant == 'Patricia' & password_verify($motdepasse,trouveMotDePasseDeux("286642","ButInformatiqueBD"))) {
+        if($Identifiant == 'Patricia' & password_verify($motdepasse,trouveMotDePassePdo("286642_uti1ls", "SelectBDUser."))) {
             resultatAdmin();
         }
         else {

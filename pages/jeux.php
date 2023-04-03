@@ -32,11 +32,11 @@ function startJeux($spe) { ?>
                     <button class="bouton_popup" onclick="closeScreenJeux()">X</button>
                 </div>
                 <div class="corpsChoix">
-                    <div id="PopupProg"><iframe class="videoLvl2" id="videoPopupProg" src="https://www.youtube.com/embed/Pu_ezhrOhrw" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                    <div id="PopupRes"><iframe class="videoLvl2" id="videoPopupRes" src="https://www.youtube.com/embed/R_FrLDrPbis" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                    <div id="PopupWeb"><iframe class="videoLvl2" id="videoPopupWeb" src="https://www.youtube.com/embed/SVuBQ5sImxM" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                    <div id="PopupBd"><iframe class="videoLvl2" id="videoPopupBd" src="https://www.youtube.com/embed/YN_EONlvjjs" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                    <div id="PopupSys"><iframe class="videoLvl2" id="videoPopupSys" src="https://www.youtube.com/embed/xD_hwXqluBk" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <div id="PopupProg"><iframe class="videoLvl2" id="videoPopupProg" src="https://www.youtube.com/embed/AjPVOdfJjkA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <div id="PopupRes"><iframe class="videoLvl2" id="videoPopupRes" src="https://www.youtube.com/embed/C-53KYZZM28" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <div id="PopupWeb"><iframe class="videoLvl2" id="videoPopupWeb" src="https://www.youtube.com/embed/I0AhLQnB8t4" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <div id="PopupBd"><iframe class="videoLvl2" id="videoPopupBd" src="https://www.youtube.com/embed/fDoEOHSyhGE" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+                    <div id="PopupSys"><iframe class="videoLvl2" id="videoPopupSys" src="https://www.youtube.com/embed/5DG2_TrBWfA" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
                     <div id="jeux" class="valideChoix" onclick="closeScreenJeux()">OK</div>
                 </div>
             </div>
@@ -368,20 +368,19 @@ function startJeux($spe) { ?>
             </div>
         </div>
         <div id = "recuperationQuestions">
-            <div id="questionsGeneralesUn"><h3>Questions Generales 1</h3><?php questionsGeneralesUnPdo("286642", "ButInformatiqueBD");?></div>
-            <div id="questionsSpecialiteUn"><h3>Questions Specialite 1</h3><?php questionsSpeUnPdo('286642', 'ButInformatiqueBD',$spe);?></div>
+            <div id="questionsGeneralesUn"><h3>Questions Generales 1</h3><?php questionsGeneralesUnPdo("286642_uti1ls", "SelectBDUser.");?></div>
+            <div id="questionsSpecialiteUn"><h3>Questions Specialite 1</h3><?php questionsSpeUnPdo('286642_uti1ls', 'SelectBDUser.',$spe);?></div>
 
 
-            <div id="questionsGeneralesDeuxUn"><h3>Questions Generales 2</h3><?php questionsGeneralesDeuxPdo("286642", "ButInformatiqueBD","General");?></div>
-            <div id="questionsSpecialitedeux"><h3>Questions Specialite 2</h3><?php questionsSpeDeuxPdo('286642', 'ButInformatiqueBD',$spe);?></div>
+            <div id="questionsGeneralesDeuxUn"><h3>Questions Generales 2</h3><?php questionsGeneralesDeuxPdo("286642_uti1ls", "SelectBDUser.","General");?></div>
+            <div id="questionsSpecialitedeux"><h3>Questions Specialite 2</h3><?php questionsSpeDeuxPdo('286642_uti1ls', 'SelectBDUser.',$spe);?></div>
         </div>
     </body>
 </html><?php } ?>
 
 <?php 
 /*fonction récupérant et affichant les réponses */
-function reponsesPdo($id,$i){
-    $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', "286642", "ButInformatiqueBD");
+function reponsesPdo($connexionBD, $id,$i){
     for ($j=0; $j < 4; $j++) { 
         // On ecris la requete avec les parametres de la fonction
         $stmt=$connexionBD->prepare("SELECT LIBELLE,BONNE_REP From REPONSE Where ID_QUESTION = ?");
@@ -432,7 +431,7 @@ function questionsGeneralesUnPdo($user, $pass){
 
                         <?php
                             //Reponse et bonneReponse
-                            reponsesPdo($result[$i]["ID_QUESTION"],$i);
+                            reponsesPdo($connexionBD, $result[$i]["ID_QUESTION"],$i);
                         ?>
                     </div>
                 <?php
@@ -467,7 +466,7 @@ function questionsGeneralesDeuxPdo($user, $pass){
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-5]["EXPLICATION"];?> </p>
                         <?php
                             //Reponse et bonneReponse
-                            reponsesPdo($result[$i-5]["ID_QUESTION"],$i);
+                            reponsesPdo($connexionBD, $result[$i-5]["ID_QUESTION"],$i);
                         ?>
                     </div>
                 <?php
@@ -502,7 +501,7 @@ function questionsSpeUnPdo($user, $pass,$THEME){
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-3]["EXPLICATION"];?> </p>
                         <?php
                             //Reponse et bonneReponse
-                            reponsesPdo($result[$i-3]["ID_QUESTION"],$i);
+                            reponsesPdo($connexionBD, $result[$i-3]["ID_QUESTION"],$i);
                         ?>
                     </div>
                 <?php
@@ -537,7 +536,7 @@ function questionsSpeDeuxPdo($user, $pass,$THEME){
                         <p id = <?php echo "Explication" .$i?>> <?php echo $result[$i-8]["EXPLICATION"];?> </p>
                         <?php
                             //Reponse et bonneReponse
-                            reponsesPdo($result[$i-8]["ID_QUESTION"],$i);
+                            reponsesPdo($connexionBD, $result[$i-8]["ID_QUESTION"],$i);
                         ?>
                     </div>
                 <?php

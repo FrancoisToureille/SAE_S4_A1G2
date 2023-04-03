@@ -533,7 +533,7 @@ function ouvrirBot() {
         document.getElementById("logoBoutonBotBasMobile").style.display = "initial"; 
         document.getElementById("chatBotMobile").style.height += 100 + "px";
         document.getElementById("aideBotMobile").style.top = 81 + "%";
-    }, 5000);
+    }, 20000);
     
 }
 
