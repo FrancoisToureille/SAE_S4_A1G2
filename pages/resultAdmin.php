@@ -295,7 +295,6 @@ function trouveMotDePassePdo($user, $pass) {
 /* fonction permettant à l'administrateur d'ajouter une question en PDO */
 function AjouteQuestionPdo($user, $pass, $Libelle, $Theme, $Difficulte, $Indice, $Explication, $Rep1, $Bon1, $Rep2, $Bon2, $Rep3, $Bon3, $Rep4, $Bon4)
 {
-
     try {
         $connexionBD = new PDO('mysql:host=mysql-quizzbutinfoaix.alwaysdata.net;dbname=quizzbutinfoaix_bd', $user, $pass);
         
@@ -455,16 +454,36 @@ function supprimeQuestionPdo($user,$pass,$ID_QUESTION) {
     }
 }
 
-/** Suppression| modification| insertion | Connexion sur la page*/
+/* function permettant de lancer la page de gestion d'administrateur si l'identifiant et le mot de passe entrés sont corrects */
+function startConnexionAdmin() {
+    $action = $_POST['action'];
+    $Identifiant = $_POST['id'];
+    $motdepasse = $_POST['motDePasse'];
+    if($action == 'valider') { 
+        if($Identifiant == 'Patricia' & password_verify($motdepasse,trouveMotDePassePdo("286642_uti1ls", "SelectBDUser."))) {
+            // Démarrer la session authentifiée
+            $_SESSION['admin'] = true; // Ajouter une variable de session 'admin' avec la valeur true pour indiquer que l'utilisateur est connecté en tant qu'administrateur
+            resultatAdmin();
+        }
+        else {
+        header("Location: https://quizzbutinfoaix.alwaysdata.net/pages/admin.php");
+        exit;
+        }
+    }
+}
 
+/** Lancement de la session */
+session_start();
+
+/** Suppression| modification| insertion | Connexion sur la page*/
 // supprimer une question
-if (isset($_POST["suppression"])) {
+if (isset($_POST["suppression"]) && $_SESSION["admin"] == true) {
     supprimeQuestionPdo("286642","ButInformatiqueBD",$_POST["id"]);
     resultatAdmin();
 }
 
 /* il faut avoir posté le formulaire de modification, même avec des variables vides pour éviter d'arriver sur cette page sans être administrateur*/
-if(isset($_POST["modification"])) {
+else if(isset($_POST["modification"]) && $_SESSION["admin"] == true) {
     $id = $_POST["id"];
     $libelle = $_POST["libelle"];
     $difficulte = $_POST["difficulte"];
@@ -484,7 +503,7 @@ if(isset($_POST["modification"])) {
 
 
 /** il faut avoir posté le formulaire d'insertion, même avec des variables vides pour éviter d'arriver sur cette page sans être administrateur*/
-if(isset($_POST["insertion"])) {
+else if(isset($_POST["insertion"]) && $_SESSION["admin"] == true) {
     $libelle = $_POST["libelle"];
     $theme = $_POST["theme"];
     $difficulte = $_POST["difficulte"];
@@ -502,23 +521,18 @@ if(isset($_POST["insertion"])) {
     resultatAdmin();
 }
 
-/* function permettant de lancer la page de gestion d'administrateur si l'identifiant et le mot de passe entrés sont corrects */
-function startConnexionAdmin() { 
-    $action = $_POST['action'];
-    $Identifiant = $_POST['id'];
-    $motdepasse = $_POST['motDePasse'];
-    if($action == 'valider') { 
-        if($Identifiant == 'Patricia' & password_verify($motdepasse,trouveMotDePassePdo("286642_uti1ls", "SelectBDUser."))) {
-            resultatAdmin();
-        }
-        else {
+/** code lançant la connexion Administrateur si l'on se connecte pour la premère fois */
+else if(isset($_POST['action']) && isset($_POST['id']) && isset($_POST['motDePasse'])) {
+    startConnexionAdmin();
+}
+else {
+    /* code lançant la connexion Administrateur si l'on est déjà connecté */
+    if(isset($_SESSION['admin'])) {
+        resultatAdmin();
+    }
+    else {
         header("Location: https://quizzbutinfoaix.alwaysdata.net/pages/admin.php");
         exit;
-        }
     }
 }
-
-/* code lançant la connexion Administrateur si l'on se connecter */
-if(isset($_POST['action']) && isset($_POST['id']) && isset($_POST['motDePasse'])) {
-    startConnexionAdmin();
-}?>
+?>
